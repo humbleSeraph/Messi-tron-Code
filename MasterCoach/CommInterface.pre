@@ -1,0 +1,172 @@
+
+# 1 "U:\_218c Teams\BringItOn\218C Project - World Cup\Coach Modules_Shikhar\MasterCoach\CommInterface.c"
+
+# 12 "C:\Program Files\HI-TECH Software\PICC\9.82\include\stdio.h"
+typedef int ptrdiff_t;
+typedef unsigned size_t;
+typedef unsigned short wchar_t;
+
+# 31 "C:\Program Files\HI-TECH Software\PICC\9.82\include\stdarg.h"
+typedef void * va_list[1];
+
+#pragma inline(__va_start)
+extern void * __va_start(void);
+
+#pragma inline(__va_arg)
+extern void * __va_arg(void *, ...);
+
+# 27 "C:\Program Files\HI-TECH Software\PICC\9.82\include\stdio.h"
+extern int errno;
+
+# 58
+struct __prbuf
+{
+char * ptr;
+void (* func)(char);
+};
+
+# 17 "C:\Program Files\HI-TECH Software\PICC\9.82\include\conio.h"
+extern int errno;
+
+
+extern void init_uart(void);
+
+extern char getch(void);
+extern char getche(void);
+extern void putch(char);
+extern void ungetch(char);
+
+extern bit kbhit(void);
+
+# 31
+extern char * cgets(char *);
+extern void cputs(const char *);
+
+# 103 "C:\Program Files\HI-TECH Software\PICC\9.82\include\stdio.h"
+extern int cprintf(char *, ...);
+#pragma printf_check(cprintf)
+
+
+
+extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+
+# 195
+extern char * gets(char *);
+extern int puts(const char *);
+extern int scanf(const char *, ...);
+extern int sscanf(const char *, const char *, ...);
+extern int vprintf(const char *, va_list);
+extern int vsprintf(char *, const char *, va_list);
+extern int vscanf(const char *, va_list ap);
+extern int vsscanf(const char *, const char *, va_list);
+
+#pragma printf_check(printf) const
+#pragma printf_check(sprintf) const
+extern int sprintf(char *, const char *, ...);
+extern int printf(const char *, ...);
+
+# 5 "U:\_218c Teams\BringItOn\218C Project - World Cup\Coach Modules_Shikhar\MasterCoach\CommInterface.h"
+typedef enum
+{ RESET,
+TAG_OUT,
+TAG_DETECTED,
+STATUS,
+REQ_PAIR,
+PAIR_RESP,
+CTRL
+} MessageType;
+
+
+
+
+unsigned char Encode_Message (MessageType type);
+void Decode_Message (void);
+
+# 8 "U:\_218c Teams\BringItOn\218C Project - World Cup\Coach Modules_Shikhar\MasterCoach\CommInterface.c"
+MessageType type = RESET;
+
+static unsigned char Data[6];
+
+
+unsigned char TAGINFO = 0b00000111;
+unsigned char SDATA = 0b10011111;
+unsigned char PAIRDATA = 0b00011111;
+unsigned char RESPDATA = 0b00000111;
+unsigned char SPD = 127;
+unsigned char DIR = 50;
+unsigned char AUX = 0xff;
+unsigned char WHIM = 0;
+unsigned char TRANS = 0;
+
+
+
+
+void Decode_Message(void)
+{
+switch (Data[0])
+{
+case 0x04:
+{
+
+printf("\n\rRESET Received");
+
+}
+break;
+
+case 0x02:
+{
+
+printf("\n\rTAG_OUT Received");
+
+}
+break;
+
+case 0x07:
+{
+
+printf("\n\rTAG_DETECTED Received");
+
+
+}
+break;
+
+case 0x06:
+{
+
+printf("\n\rSTATUS Received");
+
+}
+break;
+
+case 0x03:
+{
+
+printf("\n\rREQ_PAIR Received");
+
+}
+break;
+
+
+case 0x05:
+{
+
+printf("\n\rPAIR_RESP Received");
+
+}
+break;
+
+case 0x01:
+{
+
+printf("\n\rCTRL Received");
+
+}
+break;
+
+default:
+printf("\n\rReceived Garbage");
+
+}
+
+}
+
