@@ -1,0 +1,2451 @@
+
+
+HI-TECH Software PIC LITE Macro Assembler V9.82 build 9453 
+                                                                                               Wed May 28 15:19:34 2014
+
+HI-TECH Software Omniscient Code Generator (Lite mode) build 9453
+     1  0000                     opt subtitle "HI-TECH Software Omniscient Code Generator (Lite mode) build 9453"
+     2                           
+     3                           opt pagewidth 120
+     4                           
+     5                           	opt lm
+     6                           
+     7                           	processor	16F690
+     8                           clrc	macro
+     9                           	bcf	3,0
+    10  0000                     	endm
+    11                           clrz	macro
+    12                           	bcf	3,2
+    13  0000                     	endm
+    14                           setc	macro
+    15                           	bsf	3,0
+    16  0000                     	endm
+    17                           setz	macro
+    18                           	bsf	3,2
+    19  0000                     	endm
+    20                           skipc	macro
+    21                           	btfss	3,0
+    22  0000                     	endm
+    23                           skipz	macro
+    24                           	btfss	3,2
+    25  0000                     	endm
+    26                           skipnc	macro
+    27                           	btfsc	3,0
+    28  0000                     	endm
+    29                           skipnz	macro
+    30                           	btfsc	3,2
+    31  0000                     	endm
+    32  0000                     indf	equ	0
+    33  0000                     indf0	equ	0
+    34  0002                     pc	equ	2
+    35  0002                     pcl	equ	2
+    36  0003                     status	equ	3
+    37  0004                     fsr	equ	4
+    38  0004                     fsr0	equ	4
+    39  0001                     c	equ	1
+    40  0000                     z	equ	0
+    41  000A                     pclath	equ	10
+    42                           # 26 "U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCoa
+                                 ch\SlaveCoach\CoachSlaveCode.c"
+    43                           	psect config,class=CONFIG,delta=2 ;#
+    44                           # 26 "U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCoa
+                                 ch\SlaveCoach\CoachSlaveCode.c"
+    45  2007  FFC4               	dw 0xFFFF & 0xFFF7 & 0xFFEF & 0xFFFC & 0xFFDF ;#
+    46                           	FNCALL	_main,_InitTimers
+    47                           	FNCALL	_main,_InitPorts
+    48                           	FNCALL	_main,_InitComm
+    49                           	FNCALL	_main,_InitInterrupts
+    50                           	FNCALL	_main,_Initialize_Sensors
+    51                           	FNCALL	_main,_ReadKick
+    52                           	FNCALL	_main,_ReadWhimsy
+    53                           	FNCALL	_InitComm,_ReadPlayer
+    54                           	FNROOT	_main
+    55                           	FNCALL	_ISR,_Read_Thrust
+    56                           	FNCALL	_ISR,i1_ReadKick
+    57                           	FNCALL	_ISR,i1_ReadWhimsy
+    58                           	FNCALL	_ISR,_UpdateEnergy
+    59                           	FNCALL	_ISR,i1_ReadPlayer
+    60                           	FNCALL	intlevel1,_ISR
+    61                           	global	intlevel1
+    62                           	FNROOT	intlevel1
+    63                           	global	_BytesIn
+    64                           	global	_BytesOut
+    65                           	global	_ActiveCommuncation
+    66                           	global	_LeftCrossingFlag
+    67                           	global	_LeftZCR
+    68                           	global	_NominalAccelerationLeft
+    69                           	global	_NominalAccelerationRight
+    70                           	global	_RightCrossingFlag
+    71                           	global	_RightThrust
+    72                           	global	_RightZCR
+    73                           	global	_TOCounter
+    74                           	global	_LeftTemp
+    75                           	global	_LeftThrust
+    76                           	global	_MagnetL
+    77                           	global	_Microphone
+    78                           	global	_RightTemp
+    79                           	global	_i
+    80                           	global	_ADCON0
+    81                           psect	text406,local,class=CODE,delta=2
+    82                           global __ptext406
+    83  0000                     __ptext406:
+    84  001F                     _ADCON0	set	31
+    85                           	global	_ADRESH
+    86  001E                     _ADRESH	set	30
+    87                           	global	_INTCON
+    88  000B                     _INTCON	set	11
+    89                           	global	_PIR1
+    90  000C                     _PIR1	set	12
+    91                           	global	_PORTA
+    92  0005                     _PORTA	set	5
+    93                           	global	_PORTB
+    94  0006                     _PORTB	set	6
+    95                           	global	_PORTC
+    96  0007                     _PORTC	set	7
+    97                           	global	_SSPBUF
+    98  0013                     _SSPBUF	set	19
+    99                           	global	_T2CON
+   100  0012                     _T2CON	set	18
+   101                           	global	_CARRY
+   102  0018                     _CARRY	set	24
+   103                           	global	_CKP
+   104  00A4                     _CKP	set	164
+   105                           	global	_GIE
+   106  005F                     _GIE	set	95
+   107                           	global	_SSPEN
+   108  00A5                     _SSPEN	set	165
+   109                           	global	_SSPIF
+   110  0063                     _SSPIF	set	99
+   111                           	global	_SSPM0
+   112  00A0                     _SSPM0	set	160
+   113                           	global	_SSPM1
+   114  00A1                     _SSPM1	set	161
+   115                           	global	_SSPM2
+   116  00A2                     _SSPM2	set	162
+   117                           	global	_SSPM3
+   118  00A3                     _SSPM3	set	163
+   119                           	global	_SSPOV
+   120  00A6                     _SSPOV	set	166
+   121                           	global	_TMR2IF
+   122  0061                     _TMR2IF	set	97
+   123                           	global	_WCOL
+   124  00A7                     _WCOL	set	167
+   125                           	global	_ADCON1
+   126  009F                     _ADCON1	set	159
+   127                           	global	_OSCCON
+   128  008F                     _OSCCON	set	143
+   129                           	global	_PR2
+   130  0092                     _PR2	set	146
+   131                           	global	_SSPSTAT
+   132  0094                     _SSPSTAT	set	148
+   133                           	global	_TRISA
+   134  0085                     _TRISA	set	133
+   135                           	global	_TRISB
+   136  0086                     _TRISB	set	134
+   137                           	global	_TRISC
+   138  0087                     _TRISC	set	135
+   139                           	global	_SSPIE
+   140  0463                     _SSPIE	set	1123
+   141                           	global	_TMR2IE
+   142  0461                     _TMR2IE	set	1121
+   143                           	global	_ANSEL
+   144  011E                     _ANSEL	set	286
+   145                           	global	_ANSELH
+   146  011F                     _ANSELH	set	287
+   147                           	global	_EEADR
+   148  010D                     _EEADR	set	269
+   149                           	global	_EEDATA
+   150  010C                     _EEDATA	set	268
+   151                           	global	_EECON1
+   152  018C                     _EECON1	set	396
+   153                           	global	_EECON2
+   154  018D                     _EECON2	set	397
+   155                           	global	_RD
+   156  0C60                     _RD	set	3168
+   157                           	global	_WR
+   158  0C61                     _WR	set	3169
+   159                           	global	_WREN
+   160  0C62                     _WREN	set	3170
+   161                           	file	"SlaveCoach.as"
+   162                           	line	#
+   163                           psect cinit,class=CODE,delta=2
+   164                           global start_initialization
+   165  0170                     start_initialization:
+   166                           
+   167                           psect	bssCOMMON,class=COMMON,space=1
+   168                           global __pbssCOMMON
+   169  0078                     __pbssCOMMON:
+   170  0078                     _LeftTemp:
+   171  0078                            ds      1
+   172                           
+   173  0079                     _LeftThrust:
+   174  0079                            ds      1
+   175                           
+   176  007A                     _MagnetL:
+   177  007A                            ds      1
+   178                           
+   179  007B                     _Microphone:
+   180  007B                            ds      1
+   181                           
+   182  007C                     _RightTemp:
+   183  007C                            ds      1
+   184                           
+   185  007D                     _i:
+   186  007D                            ds      1
+   187                           
+   188                           psect	bssBANK0,class=BANK0,space=1
+   189                           global __pbssBANK0
+   190  0020                     __pbssBANK0:
+   191  0020                     _BytesIn:
+   192  0020                            ds      8
+   193                           
+   194  0028                     _BytesOut:
+   195  0028                            ds      8
+   196                           
+   197  0030                     _ActiveCommuncation:
+   198  0030                            ds      1
+   199                           
+   200  0031                     _LeftCrossingFlag:
+   201  0031                            ds      1
+   202                           
+   203  0032                     _LeftZCR:
+   204  0032                            ds      1
+   205                           
+   206  0033                     _NominalAccelerationLeft:
+   207  0033                            ds      1
+   208                           
+   209  0034                     _NominalAccelerationRight:
+   210  0034                            ds      1
+   211                           
+   212  0035                     _RightCrossingFlag:
+   213  0035                            ds      1
+   214                           
+   215  0036                     _RightThrust:
+   216  0036                            ds      1
+   217                           
+   218  0037                     _RightZCR:
+   219  0037                            ds      1
+   220                           
+   221  0038                     _TOCounter:
+   222  0038                            ds      1
+   223                           
+   224                           psect clrtext,class=CODE,delta=2
+   225                           global clear_ram
+   226                           ;	Called with FSR containing the base address, and
+   227                           ;	W with the last address+1
+   228  01DD                     clear_ram:
+   229  01DD  0064               	clrwdt			;clear the watchdog before getting into this loop
+   230  01DE                     clrloop:
+   231  01DE  0180               	clrf	indf		;clear RAM location pointed to by FSR
+   232  01DF  0A84               	incf	fsr,f		;increment pointer
+   233  01E0  0604               	xorwf	fsr,w		;XOR with final address
+   234  01E1  1903               	btfsc	status,2	;have we reached the end yet?
+   235  01E2  3400               	retlw	0		;all done for this memory range, return
+   236  01E3  0604               	xorwf	fsr,w		;XOR again to restore value
+   237  01E4  29DE               	goto	clrloop		;do the next byte
+   238                           
+   239                           ; Clear objects allocated to COMMON
+   240                           psect cinit,class=CODE,delta=2
+   241  0170  3078               	movlw	low(__pbssCOMMON)
+   242  0171  0084               	movwf	fsr
+   243  0172  307E               	movlw	low((__pbssCOMMON)+06h)
+   244  0173  118A  21DD  118A   	fcall	clear_ram
+   245                           ; Clear objects allocated to BANK0
+   246                           psect cinit,class=CODE,delta=2
+   247  0176  1383               	bcf	status, 7	;select IRP bank0
+   248  0177  3020               	movlw	low(__pbssBANK0)
+   249  0178  0084               	movwf	fsr
+   250  0179  3039               	movlw	low((__pbssBANK0)+019h)
+   251  017A  118A  21DD  118A   	fcall	clear_ram
+   252                           psect cinit,class=CODE,delta=2
+   253                           global end_of_initialization
+   254                           
+   255                           ;End of C runtime variable initialization code
+   256                           
+   257  017D                     end_of_initialization:
+   258  017D  0183               clrf status
+   259  017E  118A  2941         ljmp _main	;jump to C main() function
+   260                           psect	cstackCOMMON,class=COMMON,space=1
+   261                           global __pcstackCOMMON
+   262  0070                     __pcstackCOMMON:
+   263                           	global	?_InitTimers
+   264  0070                     ?_InitTimers:	; 0 bytes @ 0x0
+   265                           	global	?_InitPorts
+   266  0070                     ?_InitPorts:	; 0 bytes @ 0x0
+   267                           	global	?_InitComm
+   268  0070                     ?_InitComm:	; 0 bytes @ 0x0
+   269                           	global	?_InitInterrupts
+   270  0070                     ?_InitInterrupts:	; 0 bytes @ 0x0
+   271                           	global	?_Initialize_Sensors
+   272  0070                     ?_Initialize_Sensors:	; 0 bytes @ 0x0
+   273                           	global	?_ReadKick
+   274  0070                     ?_ReadKick:	; 0 bytes @ 0x0
+   275                           	global	?_ReadWhimsy
+   276  0070                     ?_ReadWhimsy:	; 0 bytes @ 0x0
+   277                           	global	?_Read_Thrust
+   278  0070                     ?_Read_Thrust:	; 0 bytes @ 0x0
+   279                           	global	??_Read_Thrust
+   280  0070                     ??_Read_Thrust:	; 0 bytes @ 0x0
+   281                           	global	?_UpdateEnergy
+   282  0070                     ?_UpdateEnergy:	; 0 bytes @ 0x0
+   283                           	global	??_UpdateEnergy
+   284  0070                     ??_UpdateEnergy:	; 0 bytes @ 0x0
+   285                           	global	?_main
+   286  0070                     ?_main:	; 0 bytes @ 0x0
+   287                           	global	?_ISR
+   288  0070                     ?_ISR:	; 0 bytes @ 0x0
+   289                           	global	??i1_ReadPlayer
+   290  0070                     ??i1_ReadPlayer:	; 0 bytes @ 0x0
+   291                           	global	?i1_ReadKick
+   292  0070                     ?i1_ReadKick:	; 0 bytes @ 0x0
+   293                           	global	??i1_ReadKick
+   294  0070                     ??i1_ReadKick:	; 0 bytes @ 0x0
+   295                           	global	?i1_ReadWhimsy
+   296  0070                     ?i1_ReadWhimsy:	; 0 bytes @ 0x0
+   297                           	global	??i1_ReadWhimsy
+   298  0070                     ??i1_ReadWhimsy:	; 0 bytes @ 0x0
+   299                           	global	?_ReadPlayer
+   300  0070                     ?_ReadPlayer:	; 1 bytes @ 0x0
+   301                           	global	?i1_ReadPlayer
+   302  0070                     ?i1_ReadPlayer:	; 1 bytes @ 0x0
+   303  0070                     	ds	1
+   304                           	global	i1ReadPlayer@x
+   305  0071                     i1ReadPlayer@x:	; 1 bytes @ 0x1
+   306  0071                     	ds	1
+   307                           	global	UpdateEnergy@x
+   308  0072                     UpdateEnergy@x:	; 1 bytes @ 0x2
+   309  0072                     	ds	1
+   310                           	global	??_ISR
+   311  0073                     ??_ISR:	; 0 bytes @ 0x3
+   312  0073                     	ds	5
+   313                           psect	cstackBANK0,class=BANK0,space=1
+   314                           global __pcstackBANK0
+   315  0039                     __pcstackBANK0:
+   316                           	global	??_InitTimers
+   317  0039                     ??_InitTimers:	; 0 bytes @ 0x0
+   318                           	global	??_InitPorts
+   319  0039                     ??_InitPorts:	; 0 bytes @ 0x0
+   320                           	global	??_InitInterrupts
+   321  0039                     ??_InitInterrupts:	; 0 bytes @ 0x0
+   322                           	global	??_Initialize_Sensors
+   323  0039                     ??_Initialize_Sensors:	; 0 bytes @ 0x0
+   324                           	global	??_ReadKick
+   325  0039                     ??_ReadKick:	; 0 bytes @ 0x0
+   326                           	global	??_ReadWhimsy
+   327  0039                     ??_ReadWhimsy:	; 0 bytes @ 0x0
+   328                           	global	??_ReadPlayer
+   329  0039                     ??_ReadPlayer:	; 0 bytes @ 0x0
+   330  0039                     	ds	1
+   331                           	global	ReadPlayer@x
+   332  003A                     ReadPlayer@x:	; 1 bytes @ 0x1
+   333  003A                     	ds	1
+   334                           	global	??_InitComm
+   335  003B                     ??_InitComm:	; 0 bytes @ 0x2
+   336  003B                     	ds	1
+   337                           	global	??_main
+   338  003C                     ??_main:	; 0 bytes @ 0x3
+   339 ;;Data sizes: Strings 0, constant 0, data 0, bss 31, persistent 0 stack 0
+   340 ;;Auto spaces:   Size  Autos    Used
+   341 ;; COMMON          14      8      14
+   342 ;; BANK0           80      3      28
+   343 ;; BANK1           80      0       0
+   344 ;; BANK2           80      0       0
+   345                           
+   346 ;;
+   347 ;; Pointer list with targets:
+   348                           
+   349                           
+   350                           
+   351 ;;
+   352 ;; Critical Paths under _main in COMMON
+   353 ;;
+   354 ;;   None.
+   355 ;;
+   356 ;; Critical Paths under _ISR in COMMON
+   357 ;;
+   358 ;;   _ISR->_UpdateEnergy
+   359 ;;
+   360 ;; Critical Paths under _main in BANK0
+   361 ;;
+   362 ;;   _main->_InitComm
+   363 ;;   _InitComm->_ReadPlayer
+   364 ;;
+   365 ;; Critical Paths under _ISR in BANK0
+   366 ;;
+   367 ;;   None.
+   368 ;;
+   369 ;; Critical Paths under _main in BANK1
+   370 ;;
+   371 ;;   None.
+   372 ;;
+   373 ;; Critical Paths under _ISR in BANK1
+   374 ;;
+   375 ;;   None.
+   376 ;;
+   377 ;; Critical Paths under _main in BANK2
+   378 ;;
+   379 ;;   None.
+   380 ;;
+   381 ;; Critical Paths under _ISR in BANK2
+   382 ;;
+   383 ;;   None.
+   384                           
+   385 ;;
+   386 ;;Main: autosize = 0, tempsize = 0, incstack = 0, save=0
+   387 ;;
+   388                           
+   389 ;;
+   390 ;;Call Graph Tables:
+   391 ;;
+   392 ;; ---------------------------------------------------------------------------------
+   393 ;; (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   394 ;; ---------------------------------------------------------------------------------
+   395 ;; (0) _main                                                 0     0      0      24
+   396 ;;                         _InitTimers
+   397 ;;                          _InitPorts
+   398 ;;                           _InitComm
+   399 ;;                     _InitInterrupts
+   400 ;;                 _Initialize_Sensors
+   401 ;;                           _ReadKick
+   402 ;;                         _ReadWhimsy
+   403 ;; ---------------------------------------------------------------------------------
+   404 ;; (1) _InitComm                                             1     1      0      24
+   405 ;;                                              2 BANK0      1     1      0
+   406 ;;                         _ReadPlayer
+   407 ;; ---------------------------------------------------------------------------------
+   408 ;; (2) _ReadPlayer                                           2     2      0      24
+   409 ;;                                              0 BANK0      2     2      0
+   410 ;; ---------------------------------------------------------------------------------
+   411 ;; (1) _ReadWhimsy                                           0     0      0       0
+   412 ;; ---------------------------------------------------------------------------------
+   413 ;; (1) _ReadKick                                             0     0      0       0
+   414 ;; ---------------------------------------------------------------------------------
+   415 ;; (1) _Initialize_Sensors                                   1     1      0       0
+   416 ;;                                              0 BANK0      1     1      0
+   417 ;; ---------------------------------------------------------------------------------
+   418 ;; (1) _InitInterrupts                                       0     0      0       0
+   419 ;; ---------------------------------------------------------------------------------
+   420 ;; (1) _InitPorts                                            0     0      0       0
+   421 ;; ---------------------------------------------------------------------------------
+   422 ;; (1) _InitTimers                                           0     0      0       0
+   423 ;; ---------------------------------------------------------------------------------
+   424 ;; Estimated maximum stack depth 2
+   425 ;; ---------------------------------------------------------------------------------
+   426 ;; (Depth) Function   	        Calls       Base Space   Used Autos Params    Refs
+   427 ;; ---------------------------------------------------------------------------------
+   428 ;; (3) _ISR                                                  5     5      0     143
+   429 ;;                                              3 COMMON     5     5      0
+   430 ;;                        _Read_Thrust
+   431 ;;                         i1_ReadKick
+   432 ;;                       i1_ReadWhimsy
+   433 ;;                       _UpdateEnergy
+   434 ;;                       i1_ReadPlayer
+   435 ;; ---------------------------------------------------------------------------------
+   436 ;; (4) i1_ReadWhimsy                                         0     0      0       0
+   437 ;; ---------------------------------------------------------------------------------
+   438 ;; (4) i1_ReadKick                                           0     0      0       0
+   439 ;; ---------------------------------------------------------------------------------
+   440 ;; (4) i1_ReadPlayer                                         2     2      0      77
+   441 ;;                                              0 COMMON     2     2      0
+   442 ;; ---------------------------------------------------------------------------------
+   443 ;; (4) _UpdateEnergy                                         3     3      0      66
+   444 ;;                                              0 COMMON     3     3      0
+   445 ;; ---------------------------------------------------------------------------------
+   446 ;; (4) _Read_Thrust                                          1     1      0       0
+   447 ;;                                              0 COMMON     1     1      0
+   448 ;; ---------------------------------------------------------------------------------
+   449 ;; Estimated maximum stack depth 4
+   450 ;; ---------------------------------------------------------------------------------
+   451                           
+   452 ;; Call Graph Graphs:
+   453                           
+   454 ;; _main (ROOT)
+   455 ;;   _InitTimers
+   456 ;;   _InitPorts
+   457 ;;   _InitComm
+   458 ;;     _ReadPlayer
+   459 ;;   _InitInterrupts
+   460 ;;   _Initialize_Sensors
+   461 ;;   _ReadKick
+   462 ;;   _ReadWhimsy
+   463 ;;
+   464 ;; _ISR (ROOT)
+   465 ;;   _Read_Thrust
+   466 ;;   i1_ReadKick
+   467 ;;   i1_ReadWhimsy
+   468 ;;   _UpdateEnergy
+   469 ;;   i1_ReadPlayer
+   470 ;;
+   471                           
+   472 ;; Address spaces:
+   473                           
+   474 ;;Name               Size   Autos  Total    Cost      Usage
+   475 ;;BITCOMMON            E      0       0       0        0.0%
+   476 ;;EEDATA             100      0       0       0        0.0%
+   477 ;;NULL                 0      0       0       0        0.0%
+   478 ;;CODE                 0      0       0       0        0.0%
+   479 ;;COMMON               E      8       E       1      100.0%
+   480 ;;BITSFR0              0      0       0       1        0.0%
+   481 ;;SFR0                 0      0       0       1        0.0%
+   482 ;;BITSFR1              0      0       0       2        0.0%
+   483 ;;SFR1                 0      0       0       2        0.0%
+   484 ;;STACK                0      0       6       2        0.0%
+   485 ;;BANK0               50      3      1C       3       35.0%
+   486 ;;BITBANK1            50      0       0       4        0.0%
+   487 ;;BITSFR3              0      0       0       4        0.0%
+   488 ;;SFR3                 0      0       0       4        0.0%
+   489 ;;BANK1               50      0       0       5        0.0%
+   490 ;;BITSFR2              0      0       0       5        0.0%
+   491 ;;SFR2                 0      0       0       5        0.0%
+   492 ;;BITBANK2            50      0       0       6        0.0%
+   493 ;;BANK2               50      0       0       7        0.0%
+   494 ;;ABS                  0      0      2A       8        0.0%
+   495 ;;BITBANK0            50      0       0       9        0.0%
+   496 ;;DATA                 0      0      30      10        0.0%
+   497                           
+   498                           	global	_main
+   499                           psect	maintext,global,class=CODE,delta=2
+   500                           global __pmaintext
+   501  0141                     __pmaintext:
+   502                           
+   503 ;; *************** function _main *****************
+   504 ;; Defined at:
+   505 ;;		line 88 in file "U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCoach\SlaveCoach\Coa
+       chSlaveCode.c"
+   506 ;; Parameters:    Size  Location     Type
+   507 ;;		None
+   508 ;; Auto vars:     Size  Location     Type
+   509 ;;		None
+   510 ;; Return value:  Size  Location     Type
+   511 ;;		None               void
+   512 ;; Registers used:
+   513 ;;		wreg, status,2, status,0, pclath, cstack
+   514 ;; Tracked objects:
+   515 ;;		On entry : 17F/0
+   516 ;;		On exit  : 0/0
+   517 ;;		Unchanged: 0/0
+   518 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   519 ;;      Params:         0       0       0       0
+   520 ;;      Locals:         0       0       0       0
+   521 ;;      Temps:          0       0       0       0
+   522 ;;      Totals:         0       0       0       0
+   523 ;;Total ram usage:        0 bytes
+   524 ;; Hardware stack levels required when called:    4
+   525 ;; This function calls:
+   526 ;;		_InitTimers
+   527 ;;		_InitPorts
+   528 ;;		_InitComm
+   529 ;;		_InitInterrupts
+   530 ;;		_Initialize_Sensors
+   531 ;;		_ReadKick
+   532 ;;		_ReadWhimsy
+   533 ;; This function is called by:
+   534 ;;		Startup code after reset
+   535 ;; This function uses a non-reentrant model
+   536 ;;
+   537                           psect	maintext
+   538                           	file	"U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCo
+                                 ach\SlaveCoach\CoachSlaveCode.c"
+   539                           	line	88
+   540                           	global	__size_of_main
+   541  001A                     	__size_of_main	equ	__end_of_main-_main
+   542                           	
+   543  0141                     _main:	
+   544                           	opt	stack 4
+   545                           ; Regs used in _main: [wreg+status,2+status,0+pclath+cstack]
+   546                           	line	89
+   547                           	
+   548  0141                     l3469:	
+   549                           ;CoachSlaveCode.c: 89: InitTimers();
+   550  0141  118A  219C  118A   	fcall	_InitTimers
+   551                           	line	90
+   552                           ;CoachSlaveCode.c: 90: InitPorts();
+   553  0144  118A  215B  118A   	fcall	_InitPorts
+   554                           	line	91
+   555                           ;CoachSlaveCode.c: 91: InitComm();
+   556  0147  118A  20F7  118A   	fcall	_InitComm
+   557                           	line	92
+   558                           ;CoachSlaveCode.c: 92: InitInterrupts();
+   559  014A  118A  21C9  118A   	fcall	_InitInterrupts
+   560                           	line	93
+   561                           ;CoachSlaveCode.c: 93: Initialize_Sensors();
+   562  014D  118A  2120  118A   	fcall	_Initialize_Sensors
+   563  0150  2951               	goto	l3471
+   564                           	line	95
+   565                           ;CoachSlaveCode.c: 95: while(1)
+   566                           	
+   567  0151                     l941:	
+   568                           	line	98
+   569                           	
+   570  0151                     l3471:	
+   571                           ;CoachSlaveCode.c: 96: {
+   572                           ;CoachSlaveCode.c: 98: ReadKick();
+   573  0151  118A  2180  118A   	fcall	_ReadKick
+   574                           	line	99
+   575                           	
+   576  0154                     l3473:	
+   577                           ;CoachSlaveCode.c: 99: ReadWhimsy();
+   578  0154  118A  21BF  118A   	fcall	_ReadWhimsy
+   579  0157  2951               	goto	l3471
+   580                           	line	100
+   581                           	
+   582  0158                     l942:	
+   583                           	line	95
+   584  0158  2951               	goto	l3471
+   585                           	
+   586  0159                     l943:	
+   587                           	line	102
+   588                           	
+   589  0159                     l944:	
+   590                           	global	start
+   591  0159  118A  2811         	ljmp	start
+   592                           	opt stack 0
+   593                           GLOBAL	__end_of_main
+   594  015B                     	__end_of_main:
+   595 ;; =============== function _main ends ============
+   596                           
+   597                           	signat	_main,88
+   598                           	global	_InitComm
+   599                           psect	text407,local,class=CODE,delta=2
+   600                           global __ptext407
+   601  00F7                     __ptext407:
+   602                           
+   603 ;; *************** function _InitComm *****************
+   604 ;; Defined at:
+   605 ;;		line 276 in file "U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCoach\SlaveCoach\Co
+       achSlaveCode.c"
+   606 ;; Parameters:    Size  Location     Type
+   607 ;;		None
+   608 ;; Auto vars:     Size  Location     Type
+   609 ;;		None
+   610 ;; Return value:  Size  Location     Type
+   611 ;;		None               void
+   612 ;; Registers used:
+   613 ;;		wreg, status,2, pclath, cstack
+   614 ;; Tracked objects:
+   615 ;;		On entry : 0/0
+   616 ;;		On exit  : 0/0
+   617 ;;		Unchanged: 0/0
+   618 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   619 ;;      Params:         0       0       0       0
+   620 ;;      Locals:         0       0       0       0
+   621 ;;      Temps:          0       1       0       0
+   622 ;;      Totals:         0       1       0       0
+   623 ;;Total ram usage:        1 bytes
+   624 ;; Hardware stack levels used:    1
+   625 ;; Hardware stack levels required when called:    3
+   626 ;; This function calls:
+   627 ;;		_ReadPlayer
+   628 ;; This function is called by:
+   629 ;;		_main
+   630 ;; This function uses a non-reentrant model
+   631 ;;
+   632                           psect	text407
+   633                           	file	"U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCo
+                                 ach\SlaveCoach\CoachSlaveCode.c"
+   634                           	line	276
+   635                           	global	__size_of_InitComm
+   636  0029                     	__size_of_InitComm	equ	__end_of_InitComm-_InitComm
+   637                           	
+   638  00F7                     _InitComm:	
+   639                           	opt	stack 4
+   640                           ; Regs used in _InitComm: [wreg+status,2+pclath+cstack]
+   641                           	line	278
+   642                           	
+   643  00F7                     l3435:	
+   644                           ;CoachSlaveCode.c: 278: SSPSTAT = 0;
+   645  00F7  1683               	bsf	status, 5	;RP0=1, select bank1
+   646  00F8  1303               	bcf	status, 6	;RP1=0, select bank1
+   647  00F9  0194               	clrf	(148)^080h	;volatile
+   648                           	line	279
+   649                           	
+   650  00FA                     l3437:	
+   651                           ;CoachSlaveCode.c: 279: WCOL = 0;
+   652  00FA  1283               	bcf	status, 5	;RP0=0, select bank0
+   653  00FB  1303               	bcf	status, 6	;RP1=0, select bank0
+   654  00FC  1394               	bcf	(167/8),(167)&7
+   655                           	line	280
+   656                           	
+   657  00FD                     l3439:	
+   658                           ;CoachSlaveCode.c: 280: SSPOV = 0;
+   659  00FD  1314               	bcf	(166/8),(166)&7
+   660                           	line	281
+   661                           	
+   662  00FE                     l3441:	
+   663                           ;CoachSlaveCode.c: 281: SSPEN = 1;
+   664  00FE  1694               	bsf	(165/8),(165)&7
+   665                           	line	282
+   666                           	
+   667  00FF                     l3443:	
+   668                           ;CoachSlaveCode.c: 282: CKP = 1;
+   669  00FF  1614               	bsf	(164/8),(164)&7
+   670                           	line	283
+   671                           	
+   672  0100                     l3445:	
+   673                           ;CoachSlaveCode.c: 283: SSPM3 = 0;
+   674  0100  1194               	bcf	(163/8),(163)&7
+   675                           	line	284
+   676                           	
+   677  0101                     l3447:	
+   678                           ;CoachSlaveCode.c: 284: SSPM2 = 1;
+   679  0101  1514               	bsf	(162/8),(162)&7
+   680                           	line	285
+   681                           	
+   682  0102                     l3449:	
+   683                           ;CoachSlaveCode.c: 285: SSPM1 = 0;
+   684  0102  1094               	bcf	(161/8),(161)&7
+   685                           	line	286
+   686                           	
+   687  0103                     l3451:	
+   688                           ;CoachSlaveCode.c: 286: SSPM0 = 0;
+   689  0103  1014               	bcf	(160/8),(160)&7
+   690                           	line	289
+   691                           	
+   692  0104                     l3453:	
+   693                           ;CoachSlaveCode.c: 289: BytesOut[1] = ReadPlayer();
+   694  0104  118A  21A9  118A   	fcall	_ReadPlayer
+   695  0107  1283               	bcf	status, 5	;RP0=0, select bank0
+   696  0108  1303               	bcf	status, 6	;RP1=0, select bank0
+   697  0109  00BB               	movwf	(??_InitComm+0)+0
+   698  010A  083B               	movf	(??_InitComm+0)+0,w
+   699  010B  00A9               	movwf	0+(_BytesOut)+01h
+   700                           	line	290
+   701                           	
+   702  010C                     l3455:	
+   703                           ;CoachSlaveCode.c: 290: BytesOut[2] = LeftTemp;
+   704  010C  0878               	movf	(_LeftTemp),w
+   705  010D  00BB               	movwf	(??_InitComm+0)+0
+   706  010E  083B               	movf	(??_InitComm+0)+0,w
+   707  010F  00AA               	movwf	0+(_BytesOut)+02h
+   708                           	line	291
+   709                           	
+   710  0110                     l3457:	
+   711                           ;CoachSlaveCode.c: 291: BytesOut[3] = RightTemp;
+   712  0110  087C               	movf	(_RightTemp),w
+   713  0111  00BB               	movwf	(??_InitComm+0)+0
+   714  0112  083B               	movf	(??_InitComm+0)+0,w
+   715  0113  00AB               	movwf	0+(_BytesOut)+03h
+   716                           	line	292
+   717                           	
+   718  0114                     l3459:	
+   719                           ;CoachSlaveCode.c: 292: BytesOut[4] = 0;
+   720  0114  01AC               	clrf	0+(_BytesOut)+04h
+   721                           	line	293
+   722                           	
+   723  0115                     l3461:	
+   724                           ;CoachSlaveCode.c: 293: BytesOut[5] = Microphone;
+   725  0115  087B               	movf	(_Microphone),w
+   726  0116  00BB               	movwf	(??_InitComm+0)+0
+   727  0117  083B               	movf	(??_InitComm+0)+0,w
+   728  0118  00AD               	movwf	0+(_BytesOut)+05h
+   729                           	line	294
+   730                           	
+   731  0119                     l3463:	
+   732                           ;CoachSlaveCode.c: 294: BytesOut[6] = MagnetL;
+   733  0119  087A               	movf	(_MagnetL),w
+   734  011A  00BB               	movwf	(??_InitComm+0)+0
+   735  011B  083B               	movf	(??_InitComm+0)+0,w
+   736  011C  00AE               	movwf	0+(_BytesOut)+06h
+   737                           	line	295
+   738                           	
+   739  011D                     l3465:	
+   740                           ;CoachSlaveCode.c: 295: BytesOut[7] = 0;
+   741  011D  01AF               	clrf	0+(_BytesOut)+07h
+   742                           	line	297
+   743                           	
+   744  011E                     l3467:	
+   745                           ;CoachSlaveCode.c: 297: BytesIn[1] = 0;
+   746  011E  01A1               	clrf	0+(_BytesIn)+01h
+   747                           	line	298
+   748                           	
+   749  011F                     l997:	
+   750  011F  0008               	return
+   751                           	opt stack 0
+   752                           GLOBAL	__end_of_InitComm
+   753  0120                     	__end_of_InitComm:
+   754 ;; =============== function _InitComm ends ============
+   755                           
+   756                           	signat	_InitComm,88
+   757                           	global	_ReadPlayer
+   758                           psect	text408,local,class=CODE,delta=2
+   759                           global __ptext408
+   760  01A9                     __ptext408:
+   761                           
+   762 ;; *************** function _ReadPlayer *****************
+   763 ;; Defined at:
+   764 ;;		line 162 in file "U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCoach\SlaveCoach\Co
+       achSlaveCode.c"
+   765 ;; Parameters:    Size  Location     Type
+   766 ;;		None
+   767 ;; Auto vars:     Size  Location     Type
+   768 ;;  x               1    1[BANK0 ] unsigned char 
+   769 ;; Return value:  Size  Location     Type
+   770 ;;                  1    wreg      char 
+   771 ;; Registers used:
+   772 ;;		wreg, status,2
+   773 ;; Tracked objects:
+   774 ;;		On entry : 0/0
+   775 ;;		On exit  : 0/0
+   776 ;;		Unchanged: 0/0
+   777 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   778 ;;      Params:         0       0       0       0
+   779 ;;      Locals:         0       1       0       0
+   780 ;;      Temps:          0       1       0       0
+   781 ;;      Totals:         0       2       0       0
+   782 ;;Total ram usage:        2 bytes
+   783 ;; Hardware stack levels used:    1
+   784 ;; Hardware stack levels required when called:    2
+   785 ;; This function calls:
+   786 ;;		Nothing
+   787 ;; This function is called by:
+   788 ;;		_InitComm
+   789 ;; This function uses a non-reentrant model
+   790 ;;
+   791                           psect	text408
+   792                           	file	"U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCo
+                                 ach\SlaveCoach\CoachSlaveCode.c"
+   793                           	line	162
+   794                           	global	__size_of_ReadPlayer
+   795  000B                     	__size_of_ReadPlayer	equ	__end_of_ReadPlayer-_ReadPlayer
+   796                           	
+   797  01A9                     _ReadPlayer:	
+   798                           	opt	stack 4
+   799                           ; Regs used in _ReadPlayer: [wreg+status,2]
+   800                           	line	164
+   801                           	
+   802  01A9                     l3411:	
+   803                           ;CoachSlaveCode.c: 164: unsigned char x=0;
+   804  01A9  1283               	bcf	status, 5	;RP0=0, select bank0
+   805  01AA  1303               	bcf	status, 6	;RP1=0, select bank0
+   806  01AB  01BA               	clrf	(ReadPlayer@x)
+   807                           	line	165
+   808                           	
+   809  01AC                     l3413:	
+   810                           ;CoachSlaveCode.c: 165: x = PORTC & 0b00011111 ;
+   811  01AC  0807               	movf	(7),w
+   812  01AD  391F               	andlw	01Fh
+   813  01AE  00B9               	movwf	(??_ReadPlayer+0)+0
+   814  01AF  0839               	movf	(??_ReadPlayer+0)+0,w
+   815  01B0  00BA               	movwf	(ReadPlayer@x)
+   816                           	line	166
+   817                           	
+   818  01B1                     l3415:	
+   819                           ;CoachSlaveCode.c: 166: return x;
+   820  01B1  083A               	movf	(ReadPlayer@x),w
+   821  01B2  29B3               	goto	l953
+   822                           	
+   823  01B3                     l3417:	
+   824                           	line	167
+   825                           	
+   826  01B3                     l953:	
+   827  01B3  0008               	return
+   828                           	opt stack 0
+   829                           GLOBAL	__end_of_ReadPlayer
+   830  01B4                     	__end_of_ReadPlayer:
+   831 ;; =============== function _ReadPlayer ends ============
+   832                           
+   833                           	signat	_ReadPlayer,89
+   834                           	global	_ReadWhimsy
+   835                           psect	text409,local,class=CODE,delta=2
+   836                           global __ptext409
+   837  01BF                     __ptext409:
+   838                           
+   839 ;; *************** function _ReadWhimsy *****************
+   840 ;; Defined at:
+   841 ;;		line 212 in file "U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCoach\SlaveCoach\Co
+       achSlaveCode.c"
+   842 ;; Parameters:    Size  Location     Type
+   843 ;;		None
+   844 ;; Auto vars:     Size  Location     Type
+   845 ;;		None
+   846 ;; Return value:  Size  Location     Type
+   847 ;;		None               void
+   848 ;; Registers used:
+   849 ;;		None
+   850 ;; Tracked objects:
+   851 ;;		On entry : 0/0
+   852 ;;		On exit  : 0/0
+   853 ;;		Unchanged: 0/0
+   854 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   855 ;;      Params:         0       0       0       0
+   856 ;;      Locals:         0       0       0       0
+   857 ;;      Temps:          0       0       0       0
+   858 ;;      Totals:         0       0       0       0
+   859 ;;Total ram usage:        0 bytes
+   860 ;; Hardware stack levels used:    1
+   861 ;; Hardware stack levels required when called:    2
+   862 ;; This function calls:
+   863 ;;		Nothing
+   864 ;; This function is called by:
+   865 ;;		_main
+   866 ;; This function uses a non-reentrant model
+   867 ;;
+   868                           psect	text409
+   869                           	file	"U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCo
+                                 ach\SlaveCoach\CoachSlaveCode.c"
+   870                           	line	212
+   871                           	global	__size_of_ReadWhimsy
+   872  000A                     	__size_of_ReadWhimsy	equ	__end_of_ReadWhimsy-_ReadWhimsy
+   873                           	
+   874  01BF                     _ReadWhimsy:	
+   875                           	opt	stack 5
+   876                           ; Regs used in _ReadWhimsy: []
+   877                           	line	214
+   878                           	
+   879  01BF                     l3327:	
+   880                           ;CoachSlaveCode.c: 214: if ( (PORTA & 0x00000008)==0 )
+   881  01BF  1283               	bcf	status, 5	;RP0=0, select bank0
+   882  01C0  1303               	bcf	status, 6	;RP1=0, select bank0
+   883  01C1  1985               	btfsc	(5),(3)&7
+   884  01C2  29C4               	goto	u2471
+   885  01C3  29C5               	goto	u2470
+   886  01C4                     u2471:
+   887  01C4  29C8               	goto	l976
+   888  01C5                     u2470:
+   889                           	line	216
+   890                           	
+   891  01C5                     l3329:	
+   892                           ;CoachSlaveCode.c: 215: {
+   893                           ;CoachSlaveCode.c: 216: MagnetL = 0xFF;
+   894  01C5  01FA               	clrf	(_MagnetL)
+   895  01C6  03FA               	decf	(_MagnetL),f
+   896  01C7  29C8               	goto	l976
+   897                           	line	217
+   898                           	
+   899  01C8                     l975:	
+   900                           	line	218
+   901                           	
+   902  01C8                     l976:	
+   903  01C8  0008               	return
+   904                           	opt stack 0
+   905                           GLOBAL	__end_of_ReadWhimsy
+   906  01C9                     	__end_of_ReadWhimsy:
+   907 ;; =============== function _ReadWhimsy ends ============
+   908                           
+   909                           	signat	_ReadWhimsy,88
+   910                           	global	_ReadKick
+   911                           psect	text410,local,class=CODE,delta=2
+   912                           global __ptext410
+   913  0180                     __ptext410:
+   914                           
+   915 ;; *************** function _ReadKick *****************
+   916 ;; Defined at:
+   917 ;;		line 171 in file "U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCoach\SlaveCoach\Co
+       achSlaveCode.c"
+   918 ;; Parameters:    Size  Location     Type
+   919 ;;		None
+   920 ;; Auto vars:     Size  Location     Type
+   921 ;;		None
+   922 ;; Return value:  Size  Location     Type
+   923 ;;		None               void
+   924 ;; Registers used:
+   925 ;;		None
+   926 ;; Tracked objects:
+   927 ;;		On entry : 0/0
+   928 ;;		On exit  : 0/0
+   929 ;;		Unchanged: 0/0
+   930 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+   931 ;;      Params:         0       0       0       0
+   932 ;;      Locals:         0       0       0       0
+   933 ;;      Temps:          0       0       0       0
+   934 ;;      Totals:         0       0       0       0
+   935 ;;Total ram usage:        0 bytes
+   936 ;; Hardware stack levels used:    1
+   937 ;; Hardware stack levels required when called:    2
+   938 ;; This function calls:
+   939 ;;		Nothing
+   940 ;; This function is called by:
+   941 ;;		_main
+   942 ;; This function uses a non-reentrant model
+   943 ;;
+   944                           psect	text410
+   945                           	file	"U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCo
+                                 ach\SlaveCoach\CoachSlaveCode.c"
+   946                           	line	171
+   947                           	global	__size_of_ReadKick
+   948  000E                     	__size_of_ReadKick	equ	__end_of_ReadKick-_ReadKick
+   949                           	
+   950  0180                     _ReadKick:	
+   951                           	opt	stack 5
+   952                           ; Regs used in _ReadKick: []
+   953                           	line	173
+   954                           	
+   955  0180                     l3323:	
+   956                           ;CoachSlaveCode.c: 173: if( ( (PORTA & 0x00000004)==0 ) ||( (PORTA & 0x00000008)==0 ) )
+   957  0180  1283               	bcf	status, 5	;RP0=0, select bank0
+   958  0181  1303               	bcf	status, 6	;RP1=0, select bank0
+   959  0182  1D05               	btfss	(5),(2)&7
+   960  0183  2985               	goto	u2451
+   961  0184  2986               	goto	u2450
+   962  0185                     u2451:
+   963  0185  298A               	goto	l958
+   964  0186                     u2450:
+   965                           	
+   966  0186                     l3325:	
+   967  0186  1985               	btfsc	(5),(3)&7
+   968  0187  2989               	goto	u2461
+   969  0188  298A               	goto	u2460
+   970  0189                     u2461:
+   971  0189  298D               	goto	l959
+   972  018A                     u2460:
+   973                           	
+   974  018A                     l958:	
+   975                           	line	175
+   976                           ;CoachSlaveCode.c: 174: {
+   977                           ;CoachSlaveCode.c: 175: Microphone = 0xFF;
+   978  018A  01FB               	clrf	(_Microphone)
+   979  018B  03FB               	decf	(_Microphone),f
+   980  018C  298D               	goto	l959
+   981                           	line	176
+   982                           	
+   983  018D                     l956:	
+   984                           	line	177
+   985                           	
+   986  018D                     l959:	
+   987  018D  0008               	return
+   988                           	opt stack 0
+   989                           GLOBAL	__end_of_ReadKick
+   990  018E                     	__end_of_ReadKick:
+   991 ;; =============== function _ReadKick ends ============
+   992                           
+   993                           	signat	_ReadKick,88
+   994                           	global	_Initialize_Sensors
+   995                           psect	text411,local,class=CODE,delta=2
+   996                           global __ptext411
+   997  0120                     __ptext411:
+   998                           
+   999 ;; *************** function _Initialize_Sensors *****************
+  1000 ;; Defined at:
+  1001 ;;		line 303 in file "U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCoach\SlaveCoach\Co
+       achSlaveCode.c"
+  1002 ;; Parameters:    Size  Location     Type
+  1003 ;;		None
+  1004 ;; Auto vars:     Size  Location     Type
+  1005 ;;		None
+  1006 ;; Return value:  Size  Location     Type
+  1007 ;;		None               void
+  1008 ;; Registers used:
+  1009 ;;		wreg
+  1010 ;; Tracked objects:
+  1011 ;;		On entry : 0/0
+  1012 ;;		On exit  : 0/0
+  1013 ;;		Unchanged: 0/0
+  1014 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1015 ;;      Params:         0       0       0       0
+  1016 ;;      Locals:         0       0       0       0
+  1017 ;;      Temps:          0       1       0       0
+  1018 ;;      Totals:         0       1       0       0
+  1019 ;;Total ram usage:        1 bytes
+  1020 ;; Hardware stack levels used:    1
+  1021 ;; Hardware stack levels required when called:    2
+  1022 ;; This function calls:
+  1023 ;;		Nothing
+  1024 ;; This function is called by:
+  1025 ;;		_main
+  1026 ;; This function uses a non-reentrant model
+  1027 ;;
+  1028                           psect	text411
+  1029                           	file	"U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCo
+                                 ach\SlaveCoach\CoachSlaveCode.c"
+  1030                           	line	303
+  1031                           	global	__size_of_Initialize_Sensors
+  1032  0021                     	__size_of_Initialize_Sensors	equ	__end_of_Initialize_Sensors-_Initialize_Sensors
+  1033                           	
+  1034  0120                     _Initialize_Sensors:	
+  1035                           	opt	stack 5
+  1036                           ; Regs used in _Initialize_Sensors: [wreg]
+  1037                           	line	305
+  1038                           	
+  1039  0120                     l3313:	
+  1040                           ;CoachSlaveCode.c: 305: ADCON1 = 0x00000020;
+  1041  0120  3020               	movlw	(020h)
+  1042  0121  1683               	bsf	status, 5	;RP0=1, select bank1
+  1043  0122  1303               	bcf	status, 6	;RP1=0, select bank1
+  1044  0123  009F               	movwf	(159)^080h	;volatile
+  1045                           	line	310
+  1046                           ;CoachSlaveCode.c: 310: ADCON0 = (0x00000001);
+  1047  0124  3001               	movlw	(01h)
+  1048  0125  1283               	bcf	status, 5	;RP0=0, select bank0
+  1049  0126  1303               	bcf	status, 6	;RP1=0, select bank0
+  1050  0127  009F               	movwf	(31)	;volatile
+  1051                           	line	311
+  1052                           	
+  1053  0128                     l3315:	
+  1054                           ;CoachSlaveCode.c: 311: ADCON0 |= 0x00000002;
+  1055  0128  149F               	bsf	(31)+(1/8),(1)&7	;volatile
+  1056                           	line	312
+  1057                           ;CoachSlaveCode.c: 312: while (ADCON0 & 0x00000002)
+  1058  0129  292A               	goto	l1000
+  1059                           	
+  1060  012A                     l1001:	
+  1061                           	line	313
+  1062                           ;CoachSlaveCode.c: 313: ;
+  1063                           	
+  1064  012A                     l1000:	
+  1065                           	line	312
+  1066  012A  189F               	btfsc	(31),(1)&7
+  1067  012B  292D               	goto	u2431
+  1068  012C  292E               	goto	u2430
+  1069  012D                     u2431:
+  1070  012D  292A               	goto	l1000
+  1071  012E                     u2430:
+  1072  012E  292F               	goto	l3317
+  1073                           	
+  1074  012F                     l1002:	
+  1075                           	line	314
+  1076                           	
+  1077  012F                     l3317:	
+  1078                           ;CoachSlaveCode.c: 314: NominalAccelerationLeft = ADRESH;
+  1079  012F  081E               	movf	(30),w	;volatile
+  1080  0130  00B9               	movwf	(??_Initialize_Sensors+0)+0
+  1081  0131  0839               	movf	(??_Initialize_Sensors+0)+0,w
+  1082  0132  00B3               	movwf	(_NominalAccelerationLeft)
+  1083                           	line	317
+  1084                           ;CoachSlaveCode.c: 317: ADCON0 = (0x00000004|0x00000001);
+  1085  0133  3005               	movlw	(05h)
+  1086  0134  009F               	movwf	(31)	;volatile
+  1087                           	line	318
+  1088                           	
+  1089  0135                     l3319:	
+  1090                           ;CoachSlaveCode.c: 318: ADCON0 |= 0x00000002;
+  1091  0135  149F               	bsf	(31)+(1/8),(1)&7	;volatile
+  1092                           	line	319
+  1093                           ;CoachSlaveCode.c: 319: while (ADCON0 & 0x00000002)
+  1094  0136  2937               	goto	l1003
+  1095                           	
+  1096  0137                     l1004:	
+  1097                           	line	320
+  1098                           ;CoachSlaveCode.c: 320: ;
+  1099                           	
+  1100  0137                     l1003:	
+  1101                           	line	319
+  1102  0137  189F               	btfsc	(31),(1)&7
+  1103  0138  293A               	goto	u2441
+  1104  0139  293B               	goto	u2440
+  1105  013A                     u2441:
+  1106  013A  2937               	goto	l1003
+  1107  013B                     u2440:
+  1108  013B  293C               	goto	l3321
+  1109                           	
+  1110  013C                     l1005:	
+  1111                           	line	321
+  1112                           	
+  1113  013C                     l3321:	
+  1114                           ;CoachSlaveCode.c: 321: NominalAccelerationRight = ADRESH;
+  1115  013C  081E               	movf	(30),w	;volatile
+  1116  013D  00B9               	movwf	(??_Initialize_Sensors+0)+0
+  1117  013E  0839               	movf	(??_Initialize_Sensors+0)+0,w
+  1118  013F  00B4               	movwf	(_NominalAccelerationRight)
+  1119                           	line	322
+  1120                           	
+  1121  0140                     l1006:	
+  1122  0140  0008               	return
+  1123                           	opt stack 0
+  1124                           GLOBAL	__end_of_Initialize_Sensors
+  1125  0141                     	__end_of_Initialize_Sensors:
+  1126 ;; =============== function _Initialize_Sensors ends ============
+  1127                           
+  1128                           	signat	_Initialize_Sensors,88
+  1129                           	global	_InitInterrupts
+  1130                           psect	text412,local,class=CODE,delta=2
+  1131                           global __ptext412
+  1132  01C9                     __ptext412:
+  1133                           
+  1134 ;; *************** function _InitInterrupts *****************
+  1135 ;; Defined at:
+  1136 ;;		line 265 in file "U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCoach\SlaveCoach\Co
+       achSlaveCode.c"
+  1137 ;; Parameters:    Size  Location     Type
+  1138 ;;		None
+  1139 ;; Auto vars:     Size  Location     Type
+  1140 ;;		None
+  1141 ;; Return value:  Size  Location     Type
+  1142 ;;		None               void
+  1143 ;; Registers used:
+  1144 ;;		wreg, status,2
+  1145 ;; Tracked objects:
+  1146 ;;		On entry : 0/0
+  1147 ;;		On exit  : 0/0
+  1148 ;;		Unchanged: 0/0
+  1149 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1150 ;;      Params:         0       0       0       0
+  1151 ;;      Locals:         0       0       0       0
+  1152 ;;      Temps:          0       0       0       0
+  1153 ;;      Totals:         0       0       0       0
+  1154 ;;Total ram usage:        0 bytes
+  1155 ;; Hardware stack levels used:    1
+  1156 ;; Hardware stack levels required when called:    2
+  1157 ;; This function calls:
+  1158 ;;		Nothing
+  1159 ;; This function is called by:
+  1160 ;;		_main
+  1161 ;; This function uses a non-reentrant model
+  1162 ;;
+  1163                           psect	text412
+  1164                           	file	"U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCo
+                                 ach\SlaveCoach\CoachSlaveCode.c"
+  1165                           	line	265
+  1166                           	global	__size_of_InitInterrupts
+  1167  000A                     	__size_of_InitInterrupts	equ	__end_of_InitInterrupts-_InitInterrupts
+  1168                           	
+  1169  01C9                     _InitInterrupts:	
+  1170                           	opt	stack 5
+  1171                           ; Regs used in _InitInterrupts: [wreg+status,2]
+  1172                           	line	268
+  1173                           	
+  1174  01C9                     l3305:	
+  1175                           ;CoachSlaveCode.c: 268: INTCON = 0b11000000;
+  1176  01C9  30C0               	movlw	(0C0h)
+  1177  01CA  008B               	movwf	(11)	;volatile
+  1178                           	line	269
+  1179                           	
+  1180  01CB                     l3307:	
+  1181                           ;CoachSlaveCode.c: 269: TMR2IE = 1;
+  1182  01CB  1683               	bsf	status, 5	;RP0=1, select bank1
+  1183  01CC  1303               	bcf	status, 6	;RP1=0, select bank1
+  1184  01CD  148C               	bsf	(1121/8)^080h,(1121)&7
+  1185                           	line	270
+  1186                           	
+  1187  01CE                     l3309:	
+  1188                           ;CoachSlaveCode.c: 270: SSPIE = 1;
+  1189  01CE  158C               	bsf	(1123/8)^080h,(1123)&7
+  1190                           	line	271
+  1191                           	
+  1192  01CF                     l3311:	
+  1193                           ;CoachSlaveCode.c: 271: PIR1 = 0;
+  1194  01CF  1283               	bcf	status, 5	;RP0=0, select bank0
+  1195  01D0  1303               	bcf	status, 6	;RP1=0, select bank0
+  1196  01D1  018C               	clrf	(12)	;volatile
+  1197                           	line	272
+  1198                           	
+  1199  01D2                     l994:	
+  1200  01D2  0008               	return
+  1201                           	opt stack 0
+  1202                           GLOBAL	__end_of_InitInterrupts
+  1203  01D3                     	__end_of_InitInterrupts:
+  1204 ;; =============== function _InitInterrupts ends ============
+  1205                           
+  1206                           	signat	_InitInterrupts,88
+  1207                           	global	_InitPorts
+  1208                           psect	text413,local,class=CODE,delta=2
+  1209                           global __ptext413
+  1210  015B                     __ptext413:
+  1211                           
+  1212 ;; *************** function _InitPorts *****************
+  1213 ;; Defined at:
+  1214 ;;		line 251 in file "U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCoach\SlaveCoach\Co
+       achSlaveCode.c"
+  1215 ;; Parameters:    Size  Location     Type
+  1216 ;;		None
+  1217 ;; Auto vars:     Size  Location     Type
+  1218 ;;		None
+  1219 ;; Return value:  Size  Location     Type
+  1220 ;;		None               void
+  1221 ;; Registers used:
+  1222 ;;		wreg, status,2
+  1223 ;; Tracked objects:
+  1224 ;;		On entry : 0/0
+  1225 ;;		On exit  : 0/0
+  1226 ;;		Unchanged: 0/0
+  1227 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1228 ;;      Params:         0       0       0       0
+  1229 ;;      Locals:         0       0       0       0
+  1230 ;;      Temps:          0       0       0       0
+  1231 ;;      Totals:         0       0       0       0
+  1232 ;;Total ram usage:        0 bytes
+  1233 ;; Hardware stack levels used:    1
+  1234 ;; Hardware stack levels required when called:    2
+  1235 ;; This function calls:
+  1236 ;;		Nothing
+  1237 ;; This function is called by:
+  1238 ;;		_main
+  1239 ;; This function uses a non-reentrant model
+  1240 ;;
+  1241                           psect	text413
+  1242                           	file	"U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCo
+                                 ach\SlaveCoach\CoachSlaveCode.c"
+  1243                           	line	251
+  1244                           	global	__size_of_InitPorts
+  1245  0015                     	__size_of_InitPorts	equ	__end_of_InitPorts-_InitPorts
+  1246                           	
+  1247  015B                     _InitPorts:	
+  1248                           	opt	stack 5
+  1249                           ; Regs used in _InitPorts: [wreg+status,2]
+  1250                           	line	253
+  1251                           	
+  1252  015B                     l3291:	
+  1253                           ;CoachSlaveCode.c: 253: ANSEL = 0b00000011;
+  1254  015B  3003               	movlw	(03h)
+  1255  015C  1283               	bcf	status, 5	;RP0=0, select bank2
+  1256  015D  1703               	bsf	status, 6	;RP1=1, select bank2
+  1257  015E  009E               	movwf	(286)^0100h	;volatile
+  1258                           	line	254
+  1259                           	
+  1260  015F                     l3293:	
+  1261                           ;CoachSlaveCode.c: 254: ANSELH = 0;
+  1262  015F  019F               	clrf	(287)^0100h	;volatile
+  1263                           	line	255
+  1264                           	
+  1265  0160                     l3295:	
+  1266                           ;CoachSlaveCode.c: 255: TRISA = 0b00001111;
+  1267  0160  300F               	movlw	(0Fh)
+  1268  0161  1683               	bsf	status, 5	;RP0=1, select bank1
+  1269  0162  1303               	bcf	status, 6	;RP1=0, select bank1
+  1270  0163  0085               	movwf	(133)^080h	;volatile
+  1271                           	line	256
+  1272                           	
+  1273  0164                     l3297:	
+  1274                           ;CoachSlaveCode.c: 256: TRISB = 0b01010000;
+  1275  0164  3050               	movlw	(050h)
+  1276  0165  0086               	movwf	(134)^080h	;volatile
+  1277                           	line	257
+  1278                           	
+  1279  0166                     l3299:	
+  1280                           ;CoachSlaveCode.c: 257: TRISC = 0b01111111;
+  1281  0166  307F               	movlw	(07Fh)
+  1282  0167  0087               	movwf	(135)^080h	;volatile
+  1283                           	line	258
+  1284                           	
+  1285  0168                     l3301:	
+  1286                           ;CoachSlaveCode.c: 258: PORTA = 0b00100000;
+  1287  0168  3020               	movlw	(020h)
+  1288  0169  1283               	bcf	status, 5	;RP0=0, select bank0
+  1289  016A  1303               	bcf	status, 6	;RP1=0, select bank0
+  1290  016B  0085               	movwf	(5)	;volatile
+  1291                           	line	259
+  1292                           	
+  1293  016C                     l3303:	
+  1294                           ;CoachSlaveCode.c: 259: PORTB = 0b10100000;
+  1295  016C  30A0               	movlw	(0A0h)
+  1296  016D  0086               	movwf	(6)	;volatile
+  1297                           	line	260
+  1298                           ;CoachSlaveCode.c: 260: PORTC = 0;
+  1299  016E  0187               	clrf	(7)	;volatile
+  1300                           	line	261
+  1301                           	
+  1302  016F                     l991:	
+  1303  016F  0008               	return
+  1304                           	opt stack 0
+  1305                           GLOBAL	__end_of_InitPorts
+  1306  0170                     	__end_of_InitPorts:
+  1307 ;; =============== function _InitPorts ends ============
+  1308                           
+  1309                           	signat	_InitPorts,88
+  1310                           	global	_InitTimers
+  1311                           psect	text414,local,class=CODE,delta=2
+  1312                           global __ptext414
+  1313  019C                     __ptext414:
+  1314                           
+  1315 ;; *************** function _InitTimers *****************
+  1316 ;; Defined at:
+  1317 ;;		line 241 in file "U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCoach\SlaveCoach\Co
+       achSlaveCode.c"
+  1318 ;; Parameters:    Size  Location     Type
+  1319 ;;		None
+  1320 ;; Auto vars:     Size  Location     Type
+  1321 ;;		None
+  1322 ;; Return value:  Size  Location     Type
+  1323 ;;		None               void
+  1324 ;; Registers used:
+  1325 ;;		wreg
+  1326 ;; Tracked objects:
+  1327 ;;		On entry : 0/0
+  1328 ;;		On exit  : 0/0
+  1329 ;;		Unchanged: 0/0
+  1330 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1331 ;;      Params:         0       0       0       0
+  1332 ;;      Locals:         0       0       0       0
+  1333 ;;      Temps:          0       0       0       0
+  1334 ;;      Totals:         0       0       0       0
+  1335 ;;Total ram usage:        0 bytes
+  1336 ;; Hardware stack levels used:    1
+  1337 ;; Hardware stack levels required when called:    2
+  1338 ;; This function calls:
+  1339 ;;		Nothing
+  1340 ;; This function is called by:
+  1341 ;;		_main
+  1342 ;; This function uses a non-reentrant model
+  1343 ;;
+  1344                           psect	text414
+  1345                           	file	"U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCo
+                                 ach\SlaveCoach\CoachSlaveCode.c"
+  1346                           	line	241
+  1347                           	global	__size_of_InitTimers
+  1348  000D                     	__size_of_InitTimers	equ	__end_of_InitTimers-_InitTimers
+  1349                           	
+  1350  019C                     _InitTimers:	
+  1351                           	opt	stack 5
+  1352                           ; Regs used in _InitTimers: [wreg]
+  1353                           	line	243
+  1354                           	
+  1355  019C                     l3289:	
+  1356                           ;CoachSlaveCode.c: 243: OSCCON = 0b01000001;
+  1357  019C  3041               	movlw	(041h)
+  1358  019D  1683               	bsf	status, 5	;RP0=1, select bank1
+  1359  019E  1303               	bcf	status, 6	;RP1=0, select bank1
+  1360  019F  008F               	movwf	(143)^080h	;volatile
+  1361                           	line	245
+  1362                           ;CoachSlaveCode.c: 245: T2CON = 0b01111110;
+  1363  01A0  307E               	movlw	(07Eh)
+  1364  01A1  1283               	bcf	status, 5	;RP0=0, select bank0
+  1365  01A2  1303               	bcf	status, 6	;RP1=0, select bank0
+  1366  01A3  0092               	movwf	(18)	;volatile
+  1367                           	line	246
+  1368                           ;CoachSlaveCode.c: 246: PR2 = 255;
+  1369  01A4  30FF               	movlw	(0FFh)
+  1370  01A5  1683               	bsf	status, 5	;RP0=1, select bank1
+  1371  01A6  1303               	bcf	status, 6	;RP1=0, select bank1
+  1372  01A7  0092               	movwf	(146)^080h	;volatile
+  1373                           	line	247
+  1374                           	
+  1375  01A8                     l988:	
+  1376  01A8  0008               	return
+  1377                           	opt stack 0
+  1378                           GLOBAL	__end_of_InitTimers
+  1379  01A9                     	__end_of_InitTimers:
+  1380 ;; =============== function _InitTimers ends ============
+  1381                           
+  1382                           	signat	_InitTimers,88
+  1383                           	global	_ISR
+  1384                           psect	text415,local,class=CODE,delta=2
+  1385                           global __ptext415
+  1386  0013                     __ptext415:
+  1387                           
+  1388 ;; *************** function _ISR *****************
+  1389 ;; Defined at:
+  1390 ;;		line 111 in file "U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCoach\SlaveCoach\Co
+       achSlaveCode.c"
+  1391 ;; Parameters:    Size  Location     Type
+  1392 ;;		None
+  1393 ;; Auto vars:     Size  Location     Type
+  1394 ;;		None
+  1395 ;; Return value:  Size  Location     Type
+  1396 ;;		None               void
+  1397 ;; Registers used:
+  1398 ;;		wreg, fsr0l, fsr0h, status,2, status,0, pclath, cstack
+  1399 ;; Tracked objects:
+  1400 ;;		On entry : 0/0
+  1401 ;;		On exit  : 0/0
+  1402 ;;		Unchanged: 0/0
+  1403 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1404 ;;      Params:         0       0       0       0
+  1405 ;;      Locals:         0       0       0       0
+  1406 ;;      Temps:          5       0       0       0
+  1407 ;;      Totals:         5       0       0       0
+  1408 ;;Total ram usage:        5 bytes
+  1409 ;; Hardware stack levels used:    1
+  1410 ;; Hardware stack levels required when called:    1
+  1411 ;; This function calls:
+  1412 ;;		_Read_Thrust
+  1413 ;;		i1_ReadKick
+  1414 ;;		i1_ReadWhimsy
+  1415 ;;		_UpdateEnergy
+  1416 ;;		i1_ReadPlayer
+  1417 ;; This function is called by:
+  1418 ;;		Interrupt level 1
+  1419 ;; This function uses a non-reentrant model
+  1420 ;;
+  1421                           psect	text415
+  1422                           	file	"U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCo
+                                 ach\SlaveCoach\CoachSlaveCode.c"
+  1423                           	line	111
+  1424                           	global	__size_of_ISR
+  1425  0065                     	__size_of_ISR	equ	__end_of_ISR-_ISR
+  1426                           	
+  1427  0013                     _ISR:	
+  1428                           	opt	stack 4
+  1429                           ; Regs used in _ISR: [wreg-fsr0h+status,2+status,0+pclath+cstack]
+  1430                           psect	intentry,class=CODE,delta=2
+  1431                           global __pintentry
+  1432  0004                     __pintentry:
+  1433                           global interrupt_function
+  1434  0004                     interrupt_function:
+  1435                           	global saved_w
+  1436  007E                     	saved_w	set	btemp+0
+  1437  0004  00FE               	movwf	saved_w
+  1438  0005  0E03               	swapf	status,w
+  1439  0006  00F4               	movwf	(??_ISR+1)
+  1440  0007  0804               	movf	fsr0,w
+  1441  0008  00F5               	movwf	(??_ISR+2)
+  1442  0009  080A               	movf	pclath,w
+  1443  000A  00F6               	movwf	(??_ISR+3)
+  1444  000B  1283               	bcf	status, 5	;RP0=0, select bank0
+  1445  000C  1303               	bcf	status, 6	;RP1=0, select bank0
+  1446  000D  087F               	movf	btemp+1,w
+  1447  000E  00F7               	movwf	(??_ISR+4)
+  1448  000F  118A  2813         	ljmp	_ISR
+  1449                           psect	text415
+  1450                           	line	112
+  1451                           	
+  1452  0013                     i1l3331:	
+  1453                           ;CoachSlaveCode.c: 112: if (SSPIF)
+  1454  0013  1D8C               	btfss	(99/8),(99)&7
+  1455  0014  2816               	goto	u248_21
+  1456  0015  2817               	goto	u248_20
+  1457  0016                     u248_21:
+  1458  0016  2832               	goto	i1l947
+  1459  0017                     u248_20:
+  1460                           	line	114
+  1461                           	
+  1462  0017                     i1l3333:	
+  1463                           ;CoachSlaveCode.c: 113: {
+  1464                           ;CoachSlaveCode.c: 114: BytesIn[i] = SSPBUF;
+  1465  0017  0813               	movf	(19),w	;volatile
+  1466  0018  00F3               	movwf	(??_ISR+0)+0
+  1467  0019  087D               	movf	(_i),w
+  1468  001A  3E20               	addlw	_BytesIn&0ffh
+  1469  001B  0084               	movwf	fsr0
+  1470  001C  0873               	movf	(??_ISR+0)+0,w
+  1471  001D  1383               	bcf	status, 7	;select IRP bank0
+  1472  001E  0080               	movwf	indf
+  1473                           	line	115
+  1474                           ;CoachSlaveCode.c: 115: SSPBUF = BytesOut[i];
+  1475  001F  087D               	movf	(_i),w
+  1476  0020  3E28               	addlw	_BytesOut&0ffh
+  1477  0021  0084               	movwf	fsr0
+  1478  0022  0800               	movf	indf,w
+  1479  0023  0093               	movwf	(19)
+  1480                           	line	116
+  1481                           	
+  1482  0024                     i1l3335:	
+  1483                           ;CoachSlaveCode.c: 116: i++;
+  1484  0024  3001               	movlw	(01h)
+  1485  0025  00F3               	movwf	(??_ISR+0)+0
+  1486  0026  0873               	movf	(??_ISR+0)+0,w
+  1487  0027  07FD               	addwf	(_i),f
+  1488                           	line	117
+  1489                           	
+  1490  0028                     i1l3337:	
+  1491                           ;CoachSlaveCode.c: 117: if(i>=7)
+  1492  0028  3007               	movlw	(07h)
+  1493  0029  027D               	subwf	(_i),w
+  1494  002A  1C03               	skipc
+  1495  002B  282D               	goto	u249_21
+  1496  002C  282E               	goto	u249_20
+  1497  002D                     u249_21:
+  1498  002D  2831               	goto	i1l948
+  1499  002E                     u249_20:
+  1500                           	line	119
+  1501                           	
+  1502  002E                     i1l3339:	
+  1503                           ;CoachSlaveCode.c: 118: {
+  1504                           ;CoachSlaveCode.c: 119: i=0;
+  1505  002E  01FD               	clrf	(_i)
+  1506                           	line	121
+  1507                           ;CoachSlaveCode.c: 121: Microphone = 0;
+  1508  002F  01FB               	clrf	(_Microphone)
+  1509                           	line	122
+  1510                           ;CoachSlaveCode.c: 122: MagnetL = 0;
+  1511  0030  01FA               	clrf	(_MagnetL)
+  1512                           	line	123
+  1513                           	
+  1514  0031                     i1l948:	
+  1515                           	line	125
+  1516                           ;CoachSlaveCode.c: 123: }
+  1517                           ;CoachSlaveCode.c: 125: SSPIF = 0;
+  1518  0031  118C               	bcf	(99/8),(99)&7
+  1519                           	line	126
+  1520                           	
+  1521  0032                     i1l947:	
+  1522                           	line	129
+  1523                           ;CoachSlaveCode.c: 126: }
+  1524                           ;CoachSlaveCode.c: 129: if (TMR2IF)
+  1525  0032  1C8C               	btfss	(97/8),(97)&7
+  1526  0033  2835               	goto	u250_21
+  1527  0034  2836               	goto	u250_20
+  1528  0035                     u250_21:
+  1529  0035  286D               	goto	i1l950
+  1530  0036                     u250_20:
+  1531                           	line	131
+  1532                           	
+  1533  0036                     i1l3341:	
+  1534                           ;CoachSlaveCode.c: 130: {
+  1535                           ;CoachSlaveCode.c: 131: TOCounter++;
+  1536  0036  3001               	movlw	(01h)
+  1537  0037  00F3               	movwf	(??_ISR+0)+0
+  1538  0038  0873               	movf	(??_ISR+0)+0,w
+  1539  0039  07B8               	addwf	(_TOCounter),f
+  1540                           	line	132
+  1541                           	
+  1542  003A                     i1l3343:	
+  1543                           ;CoachSlaveCode.c: 132: Read_Thrust();
+  1544  003A  118A  2078  118A   	fcall	_Read_Thrust
+  1545                           	line	133
+  1546                           	
+  1547  003D                     i1l3345:	
+  1548                           ;CoachSlaveCode.c: 133: ReadKick();
+  1549  003D  118A  218E  118A   	fcall	i1_ReadKick
+  1550                           	line	134
+  1551                           	
+  1552  0040                     i1l3347:	
+  1553                           ;CoachSlaveCode.c: 134: ReadWhimsy();
+  1554  0040  118A  21D3  118A   	fcall	i1_ReadWhimsy
+  1555                           	line	138
+  1556                           	
+  1557  0043                     i1l3349:	
+  1558                           ;CoachSlaveCode.c: 138: UpdateEnergy(BytesIn[1]);
+  1559  0043  1283               	bcf	status, 5	;RP0=0, select bank0
+  1560  0044  1303               	bcf	status, 6	;RP1=0, select bank0
+  1561  0045  0821               	movf	0+(_BytesIn)+01h,w
+  1562  0046  118A  20C1  118A   	fcall	_UpdateEnergy
+  1563                           	line	143
+  1564                           	
+  1565  0049                     i1l3351:	
+  1566                           ;CoachSlaveCode.c: 143: BytesOut[0] = 0x37;
+  1567  0049  3037               	movlw	(037h)
+  1568  004A  00F3               	movwf	(??_ISR+0)+0
+  1569  004B  0873               	movf	(??_ISR+0)+0,w
+  1570  004C  1283               	bcf	status, 5	;RP0=0, select bank0
+  1571  004D  1303               	bcf	status, 6	;RP1=0, select bank0
+  1572  004E  00A8               	movwf	(_BytesOut)
+  1573                           	line	144
+  1574                           	
+  1575  004F                     i1l3353:	
+  1576                           ;CoachSlaveCode.c: 144: BytesOut[1] = ReadPlayer();
+  1577  004F  118A  21B4  118A   	fcall	i1_ReadPlayer
+  1578  0052  00F3               	movwf	(??_ISR+0)+0
+  1579  0053  0873               	movf	(??_ISR+0)+0,w
+  1580  0054  1283               	bcf	status, 5	;RP0=0, select bank0
+  1581  0055  1303               	bcf	status, 6	;RP1=0, select bank0
+  1582  0056  00A9               	movwf	0+(_BytesOut)+01h
+  1583                           	line	145
+  1584                           	
+  1585  0057                     i1l3355:	
+  1586                           ;CoachSlaveCode.c: 145: BytesOut[2] = LeftTemp;
+  1587  0057  0878               	movf	(_LeftTemp),w
+  1588  0058  00F3               	movwf	(??_ISR+0)+0
+  1589  0059  0873               	movf	(??_ISR+0)+0,w
+  1590  005A  00AA               	movwf	0+(_BytesOut)+02h
+  1591                           	line	146
+  1592                           	
+  1593  005B                     i1l3357:	
+  1594                           ;CoachSlaveCode.c: 146: BytesOut[3] = RightTemp;
+  1595  005B  087C               	movf	(_RightTemp),w
+  1596  005C  00F3               	movwf	(??_ISR+0)+0
+  1597  005D  0873               	movf	(??_ISR+0)+0,w
+  1598  005E  00AB               	movwf	0+(_BytesOut)+03h
+  1599                           	line	147
+  1600                           	
+  1601  005F                     i1l3359:	
+  1602                           ;CoachSlaveCode.c: 147: BytesOut[4] = 0;
+  1603  005F  01AC               	clrf	0+(_BytesOut)+04h
+  1604                           	line	148
+  1605                           	
+  1606  0060                     i1l3361:	
+  1607                           ;CoachSlaveCode.c: 148: BytesOut[5] = Microphone;
+  1608  0060  087B               	movf	(_Microphone),w
+  1609  0061  00F3               	movwf	(??_ISR+0)+0
+  1610  0062  0873               	movf	(??_ISR+0)+0,w
+  1611  0063  00AD               	movwf	0+(_BytesOut)+05h
+  1612                           	line	149
+  1613                           	
+  1614  0064                     i1l3363:	
+  1615                           ;CoachSlaveCode.c: 149: BytesOut[6] = MagnetL;
+  1616  0064  087A               	movf	(_MagnetL),w
+  1617  0065  00F3               	movwf	(??_ISR+0)+0
+  1618  0066  0873               	movf	(??_ISR+0)+0,w
+  1619  0067  00AE               	movwf	0+(_BytesOut)+06h
+  1620                           	line	150
+  1621                           	
+  1622  0068                     i1l3365:	
+  1623                           ;CoachSlaveCode.c: 150: BytesOut[7] = 0;
+  1624  0068  01AF               	clrf	0+(_BytesOut)+07h
+  1625                           	line	151
+  1626                           	
+  1627  0069                     i1l3367:	
+  1628                           ;CoachSlaveCode.c: 151: TOCounter = 0;
+  1629  0069  01B8               	clrf	(_TOCounter)
+  1630                           	line	154
+  1631                           	
+  1632  006A                     i1l3369:	
+  1633                           ;CoachSlaveCode.c: 154: TMR2IF = 0;
+  1634  006A  108C               	bcf	(97/8),(97)&7
+  1635  006B  286D               	goto	i1l950
+  1636                           	line	155
+  1637                           	
+  1638  006C                     i1l949:	
+  1639  006C  286D               	goto	i1l950
+  1640                           	line	157
+  1641                           	
+  1642  006D                     i1l3371:	
+  1643                           	line	158
+  1644                           ;CoachSlaveCode.c: 155: }
+  1645                           ;CoachSlaveCode.c: 157: return;
+  1646                           	
+  1647  006D                     i1l950:	
+  1648  006D  0877               	movf	(??_ISR+4),w
+  1649  006E  00FF               	movwf	btemp+1
+  1650  006F  0876               	movf	(??_ISR+3),w
+  1651  0070  008A               	movwf	pclath
+  1652  0071  0875               	movf	(??_ISR+2),w
+  1653  0072  0084               	movwf	fsr0
+  1654  0073  0E74               	swapf	(??_ISR+1)^0FFFFFF80h,w
+  1655  0074  0083               	movwf	status
+  1656  0075  0EFE               	swapf	saved_w,f
+  1657  0076  0E7E               	swapf	saved_w,w
+  1658  0077  0009               	retfie
+  1659                           	opt stack 0
+  1660                           GLOBAL	__end_of_ISR
+  1661  0078                     	__end_of_ISR:
+  1662 ;; =============== function _ISR ends ============
+  1663                           
+  1664                           	signat	_ISR,88
+  1665                           	global	i1_ReadWhimsy
+  1666                           psect	text416,local,class=CODE,delta=2
+  1667                           global __ptext416
+  1668  01D3                     __ptext416:
+  1669                           
+  1670 ;; *************** function i1_ReadWhimsy *****************
+  1671 ;; Defined at:
+  1672 ;;		line 212 in file "U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCoach\SlaveCoach\Co
+       achSlaveCode.c"
+  1673 ;; Parameters:    Size  Location     Type
+  1674 ;;		None
+  1675 ;; Auto vars:     Size  Location     Type
+  1676 ;;		None
+  1677 ;; Return value:  Size  Location     Type
+  1678 ;;		None               void
+  1679 ;; Registers used:
+  1680 ;;		None
+  1681 ;; Tracked objects:
+  1682 ;;		On entry : 0/0
+  1683 ;;		On exit  : 0/0
+  1684 ;;		Unchanged: 0/0
+  1685 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1686 ;;      Params:         0       0       0       0
+  1687 ;;      Locals:         0       0       0       0
+  1688 ;;      Temps:          0       0       0       0
+  1689 ;;      Totals:         0       0       0       0
+  1690 ;;Total ram usage:        0 bytes
+  1691 ;; Hardware stack levels used:    1
+  1692 ;; This function calls:
+  1693 ;;		Nothing
+  1694 ;; This function is called by:
+  1695 ;;		_ISR
+  1696 ;; This function uses a non-reentrant model
+  1697 ;;
+  1698                           psect	text416
+  1699                           	file	"U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCo
+                                 ach\SlaveCoach\CoachSlaveCode.c"
+  1700                           	line	212
+  1701                           	global	__size_ofi1_ReadWhimsy
+  1702  000A                     	__size_ofi1_ReadWhimsy	equ	__end_ofi1_ReadWhimsy-i1_ReadWhimsy
+  1703                           	
+  1704  01D3                     i1_ReadWhimsy:	
+  1705                           	opt	stack 4
+  1706                           ; Regs used in i1_ReadWhimsy: []
+  1707                           	line	214
+  1708                           	
+  1709  01D3                     i1l3431:	
+  1710                           ;CoachSlaveCode.c: 214: if ( (PORTA & 0x00000008)==0 )
+  1711  01D3  1283               	bcf	status, 5	;RP0=0, select bank0
+  1712  01D4  1303               	bcf	status, 6	;RP1=0, select bank0
+  1713  01D5  1985               	btfsc	(5),(3)&7
+  1714  01D6  29D8               	goto	u260_21
+  1715  01D7  29D9               	goto	u260_20
+  1716  01D8                     u260_21:
+  1717  01D8  29DC               	goto	i1l976
+  1718  01D9                     u260_20:
+  1719                           	line	216
+  1720                           	
+  1721  01D9                     i1l3433:	
+  1722                           ;CoachSlaveCode.c: 215: {
+  1723                           ;CoachSlaveCode.c: 216: MagnetL = 0xFF;
+  1724  01D9  01FA               	clrf	(_MagnetL)
+  1725  01DA  03FA               	decf	(_MagnetL),f
+  1726  01DB  29DC               	goto	i1l976
+  1727                           	line	217
+  1728                           	
+  1729  01DC                     i1l975:	
+  1730                           	line	218
+  1731                           	
+  1732  01DC                     i1l976:	
+  1733  01DC  0008               	return
+  1734                           	opt stack 0
+  1735                           GLOBAL	__end_ofi1_ReadWhimsy
+  1736  01DD                     	__end_ofi1_ReadWhimsy:
+  1737 ;; =============== function i1_ReadWhimsy ends ============
+  1738                           
+  1739                           	signat	i1_ReadWhimsy,88
+  1740                           	global	i1_ReadKick
+  1741                           psect	text417,local,class=CODE,delta=2
+  1742                           global __ptext417
+  1743  018E                     __ptext417:
+  1744                           
+  1745 ;; *************** function i1_ReadKick *****************
+  1746 ;; Defined at:
+  1747 ;;		line 171 in file "U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCoach\SlaveCoach\Co
+       achSlaveCode.c"
+  1748 ;; Parameters:    Size  Location     Type
+  1749 ;;		None
+  1750 ;; Auto vars:     Size  Location     Type
+  1751 ;;		None
+  1752 ;; Return value:  Size  Location     Type
+  1753 ;;		None               void
+  1754 ;; Registers used:
+  1755 ;;		None
+  1756 ;; Tracked objects:
+  1757 ;;		On entry : 0/0
+  1758 ;;		On exit  : 0/0
+  1759 ;;		Unchanged: 0/0
+  1760 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1761 ;;      Params:         0       0       0       0
+  1762 ;;      Locals:         0       0       0       0
+  1763 ;;      Temps:          0       0       0       0
+  1764 ;;      Totals:         0       0       0       0
+  1765 ;;Total ram usage:        0 bytes
+  1766 ;; Hardware stack levels used:    1
+  1767 ;; This function calls:
+  1768 ;;		Nothing
+  1769 ;; This function is called by:
+  1770 ;;		_ISR
+  1771 ;; This function uses a non-reentrant model
+  1772 ;;
+  1773                           psect	text417
+  1774                           	file	"U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCo
+                                 ach\SlaveCoach\CoachSlaveCode.c"
+  1775                           	line	171
+  1776                           	global	__size_ofi1_ReadKick
+  1777  000E                     	__size_ofi1_ReadKick	equ	__end_ofi1_ReadKick-i1_ReadKick
+  1778                           	
+  1779  018E                     i1_ReadKick:	
+  1780                           	opt	stack 4
+  1781                           ; Regs used in i1_ReadKick: []
+  1782                           	line	173
+  1783                           	
+  1784  018E                     i1l3427:	
+  1785                           ;CoachSlaveCode.c: 173: if( ( (PORTA & 0x00000004)==0 ) ||( (PORTA & 0x00000008)==0 ) )
+  1786  018E  1283               	bcf	status, 5	;RP0=0, select bank0
+  1787  018F  1303               	bcf	status, 6	;RP1=0, select bank0
+  1788  0190  1D05               	btfss	(5),(2)&7
+  1789  0191  2993               	goto	u258_21
+  1790  0192  2994               	goto	u258_20
+  1791  0193                     u258_21:
+  1792  0193  2998               	goto	i1l958
+  1793  0194                     u258_20:
+  1794                           	
+  1795  0194                     i1l3429:	
+  1796  0194  1985               	btfsc	(5),(3)&7
+  1797  0195  2997               	goto	u259_21
+  1798  0196  2998               	goto	u259_20
+  1799  0197                     u259_21:
+  1800  0197  299B               	goto	i1l959
+  1801  0198                     u259_20:
+  1802                           	
+  1803  0198                     i1l958:	
+  1804                           	line	175
+  1805                           ;CoachSlaveCode.c: 174: {
+  1806                           ;CoachSlaveCode.c: 175: Microphone = 0xFF;
+  1807  0198  01FB               	clrf	(_Microphone)
+  1808  0199  03FB               	decf	(_Microphone),f
+  1809  019A  299B               	goto	i1l959
+  1810                           	line	176
+  1811                           	
+  1812  019B                     i1l956:	
+  1813                           	line	177
+  1814                           	
+  1815  019B                     i1l959:	
+  1816  019B  0008               	return
+  1817                           	opt stack 0
+  1818                           GLOBAL	__end_ofi1_ReadKick
+  1819  019C                     	__end_ofi1_ReadKick:
+  1820 ;; =============== function i1_ReadKick ends ============
+  1821                           
+  1822                           	signat	i1_ReadKick,88
+  1823                           	global	i1_ReadPlayer
+  1824                           psect	text418,local,class=CODE,delta=2
+  1825                           global __ptext418
+  1826  01B4                     __ptext418:
+  1827                           
+  1828 ;; *************** function i1_ReadPlayer *****************
+  1829 ;; Defined at:
+  1830 ;;		line 162 in file "U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCoach\SlaveCoach\Co
+       achSlaveCode.c"
+  1831 ;; Parameters:    Size  Location     Type
+  1832 ;;		None
+  1833 ;; Auto vars:     Size  Location     Type
+  1834 ;;  ReadPlayer      1    1[COMMON] unsigned char 
+  1835 ;; Return value:  Size  Location     Type
+  1836 ;;                  1    wreg      char 
+  1837 ;; Registers used:
+  1838 ;;		wreg, status,2
+  1839 ;; Tracked objects:
+  1840 ;;		On entry : 0/0
+  1841 ;;		On exit  : 0/0
+  1842 ;;		Unchanged: 0/0
+  1843 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1844 ;;      Params:         0       0       0       0
+  1845 ;;      Locals:         1       0       0       0
+  1846 ;;      Temps:          1       0       0       0
+  1847 ;;      Totals:         2       0       0       0
+  1848 ;;Total ram usage:        2 bytes
+  1849 ;; Hardware stack levels used:    1
+  1850 ;; This function calls:
+  1851 ;;		Nothing
+  1852 ;; This function is called by:
+  1853 ;;		_ISR
+  1854 ;; This function uses a non-reentrant model
+  1855 ;;
+  1856                           psect	text418
+  1857                           	file	"U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCo
+                                 ach\SlaveCoach\CoachSlaveCode.c"
+  1858                           	line	162
+  1859                           	global	__size_ofi1_ReadPlayer
+  1860  000B                     	__size_ofi1_ReadPlayer	equ	__end_ofi1_ReadPlayer-i1_ReadPlayer
+  1861                           	
+  1862  01B4                     i1_ReadPlayer:	
+  1863                           	opt	stack 4
+  1864                           ; Regs used in i1_ReadPlayer: [wreg+status,2]
+  1865                           	line	164
+  1866                           	
+  1867  01B4                     i1l3419:	
+  1868                           ;CoachSlaveCode.c: 164: unsigned char x=0;
+  1869  01B4  01F1               	clrf	(i1ReadPlayer@x)
+  1870                           	line	165
+  1871                           	
+  1872  01B5                     i1l3421:	
+  1873                           ;CoachSlaveCode.c: 165: x = PORTC & 0b00011111 ;
+  1874  01B5  1283               	bcf	status, 5	;RP0=0, select bank0
+  1875  01B6  1303               	bcf	status, 6	;RP1=0, select bank0
+  1876  01B7  0807               	movf	(7),w
+  1877  01B8  391F               	andlw	01Fh
+  1878  01B9  00F0               	movwf	(??i1_ReadPlayer+0)+0
+  1879  01BA  0870               	movf	(??i1_ReadPlayer+0)+0,w
+  1880  01BB  00F1               	movwf	(i1ReadPlayer@x)
+  1881                           	line	166
+  1882                           	
+  1883  01BC                     i1l3423:	
+  1884                           ;CoachSlaveCode.c: 166: return x;
+  1885  01BC  0871               	movf	(i1ReadPlayer@x),w
+  1886  01BD  29BE               	goto	i1l953
+  1887                           	
+  1888  01BE                     i1l3425:	
+  1889                           	line	167
+  1890                           	
+  1891  01BE                     i1l953:	
+  1892  01BE  0008               	return
+  1893                           	opt stack 0
+  1894                           GLOBAL	__end_ofi1_ReadPlayer
+  1895  01BF                     	__end_ofi1_ReadPlayer:
+  1896 ;; =============== function i1_ReadPlayer ends ============
+  1897                           
+  1898                           	signat	i1_ReadPlayer,89
+  1899                           	global	_UpdateEnergy
+  1900                           psect	text419,local,class=CODE,delta=2
+  1901                           global __ptext419
+  1902  00C1                     __ptext419:
+  1903                           
+  1904 ;; *************** function _UpdateEnergy *****************
+  1905 ;; Defined at:
+  1906 ;;		line 222 in file "U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCoach\SlaveCoach\Co
+       achSlaveCode.c"
+  1907 ;; Parameters:    Size  Location     Type
+  1908 ;;  x               1    wreg     char 
+  1909 ;; Auto vars:     Size  Location     Type
+  1910 ;;  x               1    2[COMMON] char 
+  1911 ;; Return value:  Size  Location     Type
+  1912 ;;		None               void
+  1913 ;; Registers used:
+  1914 ;;		wreg, status,2, status,0
+  1915 ;; Tracked objects:
+  1916 ;;		On entry : 0/0
+  1917 ;;		On exit  : 0/0
+  1918 ;;		Unchanged: 0/0
+  1919 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  1920 ;;      Params:         0       0       0       0
+  1921 ;;      Locals:         1       0       0       0
+  1922 ;;      Temps:          2       0       0       0
+  1923 ;;      Totals:         3       0       0       0
+  1924 ;;Total ram usage:        3 bytes
+  1925 ;; Hardware stack levels used:    1
+  1926 ;; This function calls:
+  1927 ;;		Nothing
+  1928 ;; This function is called by:
+  1929 ;;		_ISR
+  1930 ;; This function uses a non-reentrant model
+  1931 ;;
+  1932                           psect	text419
+  1933                           	file	"U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCo
+                                 ach\SlaveCoach\CoachSlaveCode.c"
+  1934                           	line	222
+  1935                           	global	__size_of_UpdateEnergy
+  1936  0036                     	__size_of_UpdateEnergy	equ	__end_of_UpdateEnergy-_UpdateEnergy
+  1937                           	
+  1938  00C1                     _UpdateEnergy:	
+  1939                           	opt	stack 4
+  1940                           ; Regs used in _UpdateEnergy: [wreg+status,2+status,0]
+  1941                           ;UpdateEnergy@x stored from wreg
+  1942  00C1  00F2               	movwf	(UpdateEnergy@x)
+  1943                           	line	223
+  1944                           	
+  1945  00C2                     i1l3399:	
+  1946                           ;CoachSlaveCode.c: 223: if( (x & 0x00000001)!=0)
+  1947  00C2  0872               	movf	(UpdateEnergy@x),w
+  1948  00C3  00F0               	movwf	(??_UpdateEnergy+0)+0
+  1949  00C4  01F1               	clrf	(??_UpdateEnergy+0)+0+1
+  1950  00C5  1BF0               	btfsc	(??_UpdateEnergy+0)+0,7
+  1951  00C6  03F1               	decf	(??_UpdateEnergy+0)+0+1,f
+  1952  00C7  1C70               	btfss	0+(??_UpdateEnergy+0)+0,(0)&7
+  1953  00C8  28CA               	goto	u255_21
+  1954  00C9  28CB               	goto	u255_20
+  1955  00CA                     u255_21:
+  1956  00CA  28D2               	goto	i1l979
+  1957  00CB                     u255_20:
+  1958                           	line	224
+  1959                           	
+  1960  00CB                     i1l3401:	
+  1961                           ;CoachSlaveCode.c: 224: { PORTA &= ~0x00000020; }
+  1962  00CB  30DF               	movlw	(0DFh)
+  1963  00CC  00F0               	movwf	(??_UpdateEnergy+0)+0
+  1964  00CD  0870               	movf	(??_UpdateEnergy+0)+0,w
+  1965  00CE  1283               	bcf	status, 5	;RP0=0, select bank0
+  1966  00CF  1303               	bcf	status, 6	;RP1=0, select bank0
+  1967  00D0  0585               	andwf	(5),f	;volatile
+  1968  00D1  28D6               	goto	i1l3403
+  1969                           	line	225
+  1970                           	
+  1971  00D2                     i1l979:	
+  1972                           	line	226
+  1973                           ;CoachSlaveCode.c: 225: else
+  1974                           ;CoachSlaveCode.c: 226: { PORTA |= 0x00000020; }
+  1975  00D2  1283               	bcf	status, 5	;RP0=0, select bank0
+  1976  00D3  1303               	bcf	status, 6	;RP1=0, select bank0
+  1977  00D4  1685               	bsf	(5)+(5/8),(5)&7	;volatile
+  1978  00D5  28D6               	goto	i1l3403
+  1979                           	
+  1980  00D6                     i1l980:	
+  1981                           	line	228
+  1982                           	
+  1983  00D6                     i1l3403:	
+  1984                           ;CoachSlaveCode.c: 228: if( (x & 0x00000002)!=0)
+  1985  00D6  0872               	movf	(UpdateEnergy@x),w
+  1986  00D7  00F0               	movwf	(??_UpdateEnergy+0)+0
+  1987  00D8  01F1               	clrf	(??_UpdateEnergy+0)+0+1
+  1988  00D9  1BF0               	btfsc	(??_UpdateEnergy+0)+0,7
+  1989  00DA  03F1               	decf	(??_UpdateEnergy+0)+0+1,f
+  1990  00DB  1CF0               	btfss	0+(??_UpdateEnergy+0)+0,(1)&7
+  1991  00DC  28DE               	goto	u256_21
+  1992  00DD  28DF               	goto	u256_20
+  1993  00DE                     u256_21:
+  1994  00DE  28E4               	goto	i1l981
+  1995  00DF                     u256_20:
+  1996                           	line	229
+  1997                           	
+  1998  00DF                     i1l3405:	
+  1999                           ;CoachSlaveCode.c: 229: { PORTB &= ~0x00000080; }
+  2000  00DF  307F               	movlw	(07Fh)
+  2001  00E0  00F0               	movwf	(??_UpdateEnergy+0)+0
+  2002  00E1  0870               	movf	(??_UpdateEnergy+0)+0,w
+  2003  00E2  0586               	andwf	(6),f	;volatile
+  2004  00E3  28E6               	goto	i1l3407
+  2005                           	line	230
+  2006                           	
+  2007  00E4                     i1l981:	
+  2008                           	line	231
+  2009                           ;CoachSlaveCode.c: 230: else
+  2010                           ;CoachSlaveCode.c: 231: { PORTB |= 0x00000080; }
+  2011  00E4  1786               	bsf	(6)+(7/8),(7)&7	;volatile
+  2012  00E5  28E6               	goto	i1l3407
+  2013                           	
+  2014  00E6                     i1l982:	
+  2015                           	line	233
+  2016                           	
+  2017  00E6                     i1l3407:	
+  2018                           ;CoachSlaveCode.c: 233: if( (x & 0x00000004)!=0)
+  2019  00E6  0872               	movf	(UpdateEnergy@x),w
+  2020  00E7  00F0               	movwf	(??_UpdateEnergy+0)+0
+  2021  00E8  01F1               	clrf	(??_UpdateEnergy+0)+0+1
+  2022  00E9  1BF0               	btfsc	(??_UpdateEnergy+0)+0,7
+  2023  00EA  03F1               	decf	(??_UpdateEnergy+0)+0+1,f
+  2024  00EB  1D70               	btfss	0+(??_UpdateEnergy+0)+0,(2)&7
+  2025  00EC  28EE               	goto	u257_21
+  2026  00ED  28EF               	goto	u257_20
+  2027  00EE                     u257_21:
+  2028  00EE  28F4               	goto	i1l983
+  2029  00EF                     u257_20:
+  2030                           	line	234
+  2031                           	
+  2032  00EF                     i1l3409:	
+  2033                           ;CoachSlaveCode.c: 234: { PORTB &= ~0x00000020; }
+  2034  00EF  30DF               	movlw	(0DFh)
+  2035  00F0  00F0               	movwf	(??_UpdateEnergy+0)+0
+  2036  00F1  0870               	movf	(??_UpdateEnergy+0)+0,w
+  2037  00F2  0586               	andwf	(6),f	;volatile
+  2038  00F3  28F6               	goto	i1l985
+  2039                           	line	235
+  2040                           	
+  2041  00F4                     i1l983:	
+  2042                           	line	236
+  2043                           ;CoachSlaveCode.c: 235: else
+  2044                           ;CoachSlaveCode.c: 236: { PORTB |= 0x00000020; }
+  2045  00F4  1686               	bsf	(6)+(5/8),(5)&7	;volatile
+  2046  00F5  28F6               	goto	i1l985
+  2047                           	
+  2048  00F6                     i1l984:	
+  2049                           	line	237
+  2050                           	
+  2051  00F6                     i1l985:	
+  2052  00F6  0008               	return
+  2053                           	opt stack 0
+  2054                           GLOBAL	__end_of_UpdateEnergy
+  2055  00F7                     	__end_of_UpdateEnergy:
+  2056 ;; =============== function _UpdateEnergy ends ============
+  2057                           
+  2058                           	signat	_UpdateEnergy,4216
+  2059                           	global	_Read_Thrust
+  2060                           psect	text420,local,class=CODE,delta=2
+  2061                           global __ptext420
+  2062  0078                     __ptext420:
+  2063                           
+  2064 ;; *************** function _Read_Thrust *****************
+  2065 ;; Defined at:
+  2066 ;;		line 181 in file "U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCoach\SlaveCoach\Co
+       achSlaveCode.c"
+  2067 ;; Parameters:    Size  Location     Type
+  2068 ;;		None
+  2069 ;; Auto vars:     Size  Location     Type
+  2070 ;;		None
+  2071 ;; Return value:  Size  Location     Type
+  2072 ;;		None               void
+  2073 ;; Registers used:
+  2074 ;;		wreg, status,2, status,0
+  2075 ;; Tracked objects:
+  2076 ;;		On entry : 0/0
+  2077 ;;		On exit  : 0/0
+  2078 ;;		Unchanged: 0/0
+  2079 ;; Data sizes:     COMMON   BANK0   BANK1   BANK2
+  2080 ;;      Params:         0       0       0       0
+  2081 ;;      Locals:         0       0       0       0
+  2082 ;;      Temps:          1       0       0       0
+  2083 ;;      Totals:         1       0       0       0
+  2084 ;;Total ram usage:        1 bytes
+  2085 ;; Hardware stack levels used:    1
+  2086 ;; This function calls:
+  2087 ;;		Nothing
+  2088 ;; This function is called by:
+  2089 ;;		_ISR
+  2090 ;; This function uses a non-reentrant model
+  2091 ;;
+  2092                           psect	text420
+  2093                           	file	"U:\_218c Teams\BringItOn\218C Project - World Cup\COACH CODE WE ARE USING\SlaveCo
+                                 ach\SlaveCoach\CoachSlaveCode.c"
+  2094                           	line	181
+  2095                           	global	__size_of_Read_Thrust
+  2096  0049                     	__size_of_Read_Thrust	equ	__end_of_Read_Thrust-_Read_Thrust
+  2097                           	
+  2098  0078                     _Read_Thrust:	
+  2099                           	opt	stack 4
+  2100                           ; Regs used in _Read_Thrust: [wreg+status,2+status,0]
+  2101                           	line	184
+  2102                           	
+  2103  0078                     i1l3373:	
+  2104                           ;CoachSlaveCode.c: 184: ADCON0 = (0x00000001);
+  2105  0078  3001               	movlw	(01h)
+  2106  0079  1283               	bcf	status, 5	;RP0=0, select bank0
+  2107  007A  1303               	bcf	status, 6	;RP1=0, select bank0
+  2108  007B  009F               	movwf	(31)	;volatile
+  2109                           	line	185
+  2110                           	
+  2111  007C                     i1l3375:	
+  2112                           ;CoachSlaveCode.c: 185: ADCON0 |= 0x00000002;
+  2113  007C  149F               	bsf	(31)+(1/8),(1)&7	;volatile
+  2114                           	line	186
+  2115                           ;CoachSlaveCode.c: 186: while (ADCON0 & 0x00000002)
+  2116  007D  287E               	goto	i1l962
+  2117                           	
+  2118  007E                     i1l963:	
+  2119                           	line	187
+  2120                           ;CoachSlaveCode.c: 187: ;
+  2121                           	
+  2122  007E                     i1l962:	
+  2123                           	line	186
+  2124  007E  189F               	btfsc	(31),(1)&7
+  2125  007F  2881               	goto	u251_21
+  2126  0080  2882               	goto	u251_20
+  2127  0081                     u251_21:
+  2128  0081  287E               	goto	i1l962
+  2129  0082                     u251_20:
+  2130  0082  2883               	goto	i1l3377
+  2131                           	
+  2132  0083                     i1l964:	
+  2133                           	line	188
+  2134                           	
+  2135  0083                     i1l3377:	
+  2136                           ;CoachSlaveCode.c: 188: LeftThrust = ADRESH;
+  2137  0083  081E               	movf	(30),w	;volatile
+  2138  0084  00F0               	movwf	(??_Read_Thrust+0)+0
+  2139  0085  0870               	movf	(??_Read_Thrust+0)+0,w
+  2140  0086  00F9               	movwf	(_LeftThrust)
+  2141                           	line	189
+  2142                           ;CoachSlaveCode.c: 189: LeftTemp = (signed char) LeftThrust;
+  2143  0087  0879               	movf	(_LeftThrust),w
+  2144  0088  00F0               	movwf	(??_Read_Thrust+0)+0
+  2145  0089  0870               	movf	(??_Read_Thrust+0)+0,w
+  2146  008A  00F8               	movwf	(_LeftTemp)
+  2147                           	line	190
+  2148                           	
+  2149  008B                     i1l3379:	
+  2150                           ;CoachSlaveCode.c: 190: if (LeftTemp < 0)
+  2151  008B  1FF8               	btfss	(_LeftTemp),7
+  2152  008C  288E               	goto	u252_21
+  2153  008D  288F               	goto	u252_20
+  2154  008E                     u252_21:
+  2155  008E  2895               	goto	i1l3383
+  2156  008F                     u252_20:
+  2157                           	line	191
+  2158                           	
+  2159  008F                     i1l3381:	
+  2160                           ;CoachSlaveCode.c: 191: LeftTemp = LeftTemp + 128;
+  2161  008F  0878               	movf	(_LeftTemp),w
+  2162  0090  3E80               	addlw	-128
+  2163  0091  00F0               	movwf	(??_Read_Thrust+0)+0
+  2164  0092  0870               	movf	(??_Read_Thrust+0)+0,w
+  2165  0093  00F8               	movwf	(_LeftTemp)
+  2166  0094  289B               	goto	i1l3385
+  2167                           	line	192
+  2168                           	
+  2169  0095                     i1l965:	
+  2170                           	line	193
+  2171                           	
+  2172  0095                     i1l3383:	
+  2173                           ;CoachSlaveCode.c: 192: else
+  2174                           ;CoachSlaveCode.c: 193: LeftTemp = LeftTemp - 127;
+  2175  0095  0878               	movf	(_LeftTemp),w
+  2176  0096  3E81               	addlw	-127
+  2177  0097  00F0               	movwf	(??_Read_Thrust+0)+0
+  2178  0098  0870               	movf	(??_Read_Thrust+0)+0,w
+  2179  0099  00F8               	movwf	(_LeftTemp)
+  2180  009A  289B               	goto	i1l3385
+  2181                           	
+  2182  009B                     i1l966:	
+  2183                           	line	194
+  2184                           	
+  2185  009B                     i1l3385:	
+  2186                           ;CoachSlaveCode.c: 194: LeftTemp = -LeftTemp;
+  2187  009B  09F8               	comf	(_LeftTemp),f
+  2188  009C  0AF8               	incf	(_LeftTemp),f
+  2189                           	line	197
+  2190                           ;CoachSlaveCode.c: 197: ADCON0 = (0x00000004|0x00000001);
+  2191  009D  3005               	movlw	(05h)
+  2192  009E  009F               	movwf	(31)	;volatile
+  2193                           	line	198
+  2194                           	
+  2195  009F                     i1l3387:	
+  2196                           ;CoachSlaveCode.c: 198: ADCON0 |= 0x00000002;
+  2197  009F  149F               	bsf	(31)+(1/8),(1)&7	;volatile
+  2198                           	line	199
+  2199                           ;CoachSlaveCode.c: 199: while (ADCON0 & 0x00000002)
+  2200  00A0  28A1               	goto	i1l967
+  2201                           	
+  2202  00A1                     i1l968:	
+  2203                           	line	200
+  2204                           ;CoachSlaveCode.c: 200: ;
+  2205                           	
+  2206  00A1                     i1l967:	
+  2207                           	line	199
+  2208  00A1  189F               	btfsc	(31),(1)&7
+  2209  00A2  28A4               	goto	u253_21
+  2210  00A3  28A5               	goto	u253_20
+  2211  00A4                     u253_21:
+  2212  00A4  28A1               	goto	i1l967
+  2213  00A5                     u253_20:
+  2214  00A5  28A6               	goto	i1l3389
+  2215                           	
+  2216  00A6                     i1l969:	
+  2217                           	line	201
+  2218                           	
+  2219  00A6                     i1l3389:	
+  2220                           ;CoachSlaveCode.c: 201: RightThrust = ADRESH;
+  2221  00A6  081E               	movf	(30),w	;volatile
+  2222  00A7  00F0               	movwf	(??_Read_Thrust+0)+0
+  2223  00A8  0870               	movf	(??_Read_Thrust+0)+0,w
+  2224  00A9  00B6               	movwf	(_RightThrust)
+  2225                           	line	202
+  2226                           ;CoachSlaveCode.c: 202: RightTemp = (signed char) RightThrust;
+  2227  00AA  0836               	movf	(_RightThrust),w
+  2228  00AB  00F0               	movwf	(??_Read_Thrust+0)+0
+  2229  00AC  0870               	movf	(??_Read_Thrust+0)+0,w
+  2230  00AD  00FC               	movwf	(_RightTemp)
+  2231                           	line	203
+  2232                           	
+  2233  00AE                     i1l3391:	
+  2234                           ;CoachSlaveCode.c: 203: if (RightTemp < 0)
+  2235  00AE  1FFC               	btfss	(_RightTemp),7
+  2236  00AF  28B1               	goto	u254_21
+  2237  00B0  28B2               	goto	u254_20
+  2238  00B1                     u254_21:
+  2239  00B1  28B8               	goto	i1l3395
+  2240  00B2                     u254_20:
+  2241                           	line	204
+  2242                           	
+  2243  00B2                     i1l3393:	
+  2244                           ;CoachSlaveCode.c: 204: RightTemp = RightTemp + 128;
+  2245  00B2  087C               	movf	(_RightTemp),w
+  2246  00B3  3E80               	addlw	-128
+  2247  00B4  00F0               	movwf	(??_Read_Thrust+0)+0
+  2248  00B5  0870               	movf	(??_Read_Thrust+0)+0,w
+  2249  00B6  00FC               	movwf	(_RightTemp)
+  2250  00B7  28BE               	goto	i1l3397
+  2251                           	line	205
+  2252                           	
+  2253  00B8                     i1l970:	
+  2254                           	line	206
+  2255                           	
+  2256  00B8                     i1l3395:	
+  2257                           ;CoachSlaveCode.c: 205: else
+  2258                           ;CoachSlaveCode.c: 206: RightTemp = RightTemp - 127;
+  2259  00B8  087C               	movf	(_RightTemp),w
+  2260  00B9  3E81               	addlw	-127
+  2261  00BA  00F0               	movwf	(??_Read_Thrust+0)+0
+  2262  00BB  0870               	movf	(??_Read_Thrust+0)+0,w
+  2263  00BC  00FC               	movwf	(_RightTemp)
+  2264  00BD  28BE               	goto	i1l3397
+  2265                           	
+  2266  00BE                     i1l971:	
+  2267                           	line	207
+  2268                           	
+  2269  00BE                     i1l3397:	
+  2270                           ;CoachSlaveCode.c: 207: RightTemp = -RightTemp;
+  2271  00BE  09FC               	comf	(_RightTemp),f
+  2272  00BF  0AFC               	incf	(_RightTemp),f
+  2273                           	line	208
+  2274                           	
+  2275  00C0                     i1l972:	
+  2276  00C0  0008               	return
+  2277                           	opt stack 0
+  2278                           GLOBAL	__end_of_Read_Thrust
+  2279  00C1                     	__end_of_Read_Thrust:
+  2280 ;; =============== function _Read_Thrust ends ============
+  2281                           
+  2282                           	signat	_Read_Thrust,88
+  2283                           psect	text421,local,class=CODE,delta=2
+  2284                           global __ptext421
+  2285  0000                     __ptext421:
+  2286                           	global	btemp
+  2287  007E                     	btemp set 07Eh
+  2288                           
+  2289                           	DABS	1,126,2	;btemp
+  2290                           	global	wtemp0
+  2291  007E                     	wtemp0 set btemp
+
+
+HI-TECH Software PICC Macro Assembler V9.82 build 9453 
+Symbol Table                                                                                   Wed May 28 15:19:34 2014
+
+                          _i 007D                           _RD 0C60                           _WR 0C61  
+                         fsr 0004                          l941 0151                          l942 0158  
+                        l943 0159                          l944 0159                          l953 01B3  
+                        l956 018D                          l958 018A                          l991 016F  
+                        l959 018D                          l975 01C8                          l976 01C8  
+                        l994 01D2                          _CKP 00A4                          _GIE 005F  
+                        l988 01A8                          l997 011F                          _PR2 0092  
+                        _ISR 0013                          fsr0 0004                          indf 0000  
+                       ?_ISR 0070                         l1000 012A                         l1001 012A  
+                       l1002 012F                         l1003 0137                         l1004 0137  
+                       l1005 013C                         l1006 0140                         l3301 0168  
+                       l3303 016C                         l3311 01CF                         l3305 01C9  
+                       l3321 013C                         l3313 0120                         l3307 01CB  
+                       l3315 0128                         l3323 0180                         l3411 01A9  
+                       l3309 01CE                         l3317 012F                         l3325 0186  
+                       l3413 01AC                         l3319 0135                         l3327 01BF  
+                       l3415 01B1                         l3329 01C5                         l3417 01B3  
+                       l3441 00FE                         l3291 015B                         l3451 0103  
+                       l3443 00FF                         l3435 00F7                         l3293 015F  
+                       l3461 0115                         l3453 0104                         l3445 0100  
+                       l3437 00FA                         l3295 0160                         l3463 0119  
+                       l3455 010C                         l3447 0101                         l3439 00FD  
+                       l3471 0151                         l3289 019C                         l3297 0164  
+                       l3465 011D                         l3457 0110                         l3449 0102  
+                       l3473 0154                         l3299 0166                         l3467 011E  
+                       l3459 0114                         l3469 0141                         u2430 012E  
+                       u2431 012D                         u2440 013B                         u2441 013A  
+                       u2450 0186                         u2451 0185                         u2460 018A  
+                       u2461 0189                         u2470 01C5                         u2471 01C4  
+                       _PIR1 000C                         _WCOL 00A7                         _WREN 0C62  
+                       _main 0141                         btemp 007E                         start 0011  
+                      ??_ISR 0073                ??_Read_Thrust 0070                        ?_main 0070  
+                      _EEADR 010D                        _CARRY 0018                        _ANSEL 011E  
+                      _T2CON 0012                        i1l950 006D                        i1l953 01BE  
+                      i1l970 00B8                        i1l962 007E                        i1l971 00BE  
+                      i1l963 007E                        i1l947 0032                        i1l972 00C0  
+                      i1l964 0083                        i1l980 00D6                        i1l956 019B  
+                      i1l948 0031                        i1l965 0095                        i1l981 00E4  
+                      i1l949 006C                        i1l966 009B                        i1l982 00E6  
+                      i1l958 0198                        i1l967 00A1                        i1l983 00F4  
+                      i1l959 019B                        i1l975 01DC                        i1l968 00A1  
+                      i1l984 00F6                        i1l976 01DC                        i1l969 00A6  
+                      i1l985 00F6                        i1l979 00D2                        _PORTA 0005  
+                      _PORTB 0006                        _PORTC 0007                        _SSPM0 00A0  
+                      _SSPM1 00A1                        _SSPM2 00A2                        _SSPM3 00A3  
+                      _TRISA 0085                        _TRISB 0086                        _TRISC 0087  
+                      _SSPIE 0463                        _SSPIF 0063                        _SSPEN 00A5  
+                      _SSPOV 00A6   __end_of_Initialize_Sensors 0141                  ?i1_ReadKick 0070  
+                      pclath 000A                        status 0003                   _LeftThrust 0079  
+                      wtemp0 007E                  ReadPlayer@x 003A                   _InitTimers 019C  
+               __end_of_main 015B               _InitInterrupts 01C9                   _ReadPlayer 01A9  
+           __end_of_InitComm 0120                   _ReadWhimsy 01BF             __end_of_ReadKick 018E  
+                 _Microphone 007B                       ??_main 003C          __end_of_Read_Thrust 00C1  
+                     _ADCON0 001F                       _ADCON1 009F                       _ADRESH 001E  
+                     _EEDATA 010C                       _EECON1 018C                       _EECON2 018D  
+                     _ANSELH 011F                       i1l3401 00CB                       i1l3403 00D6  
+                     i1l3331 0013                       i1l3405 00DF                       i1l3421 01B5  
+                     i1l3341 0036                       i1l3333 0017                       i1l3407 00E6  
+                     i1l3423 01BC                       i1l3431 01D3                       i1l3351 0049  
+                     i1l3343 003A                       i1l3335 0024                       i1l3409 00EF  
+                     i1l3425 01BE                       i1l3433 01D9                       i1l3361 0060  
+                     i1l3353 004F                       i1l3345 003D                       i1l3337 0028  
+                     i1l3419 01B4                       i1l3427 018E                       i1l3371 006D  
+                     i1l3363 0064                       i1l3355 0057                       i1l3347 0040  
+                     i1l3339 002E                       i1l3381 008F                       i1l3373 0078  
+                     i1l3429 0194                       i1l3365 0068                       i1l3357 005B  
+                     i1l3349 0043                       i1l3391 00AE                       i1l3383 0095  
+                     i1l3375 007C                       i1l3367 0069                       i1l3359 005F  
+                     i1l3393 00B2                       i1l3385 009B                       i1l3377 0083  
+                     i1l3369 006A                       i1l3395 00B8                       i1l3387 009F  
+                     i1l3379 008B                       i1l3397 00BE                       i1l3389 00A6  
+                     i1l3399 00C2                       _INTCON 000B                       u250_20 0036  
+                     u250_21 0035                       u251_20 0082                       u251_21 0081  
+                     u252_20 008F                       u260_20 01D9                       u252_21 008E  
+                     u260_21 01D8                       u253_20 00A5                       u253_21 00A4  
+                     u254_20 00B2                       u254_21 00B1                       u255_20 00CB  
+                     u255_21 00CA                       u256_20 00DF                       u248_20 0017  
+                     u256_21 00DE                       u248_21 0016                       u257_20 00EF  
+                     u249_20 002E                       u257_21 00EE                       u249_21 002D  
+                     u258_20 0194                       u258_21 0193                       u259_20 0198  
+                     u259_21 0197                       _OSCCON 008F                       _TMR2IE 0461  
+                     _TMR2IF 0061                       _SSPBUF 0013           __size_of_InitPorts 0015  
+           _LeftCrossingFlag 0031       __end_of_InitInterrupts 01D3          __size_ofi1_ReadKick 000E  
+                     clrloop 01DE                       saved_w 007E              ?_InitInterrupts 0070  
+             __pcstackCOMMON 0070                  ?_InitTimers 0070                  ?_ReadPlayer 0070  
+                ?_ReadWhimsy 0070                  _Read_Thrust 0078            __end_of_InitPorts 0170  
+                 __pbssBANK0 0020                    ?_InitComm 0070                    ?_ReadKick 0070  
+                 __pmaintext 0141                   __pintentry 0004                  _RightThrust 0036  
+               ??i1_ReadKick 0070          __size_of_InitTimers 000D                      _SSPSTAT 0094  
+        __size_of_ReadPlayer 000B          __size_of_ReadWhimsy 000A                   ??_InitComm 003B  
+                 ??_ReadKick 0039                      _LeftZCR 0032                      _MagnetL 007A  
+                    _BytesIn 0020           _Initialize_Sensors 0120          ?_Initialize_Sensors 0070  
+         __end_ofi1_ReadKick 019C                 __size_of_ISR 0065                ?i1_ReadPlayer 0070  
+              ?_UpdateEnergy 0070                ?i1_ReadWhimsy 0070         end_of_initialization 017D  
+       ??_Initialize_Sensors 0039            _RightCrossingFlag 0035     _NominalAccelerationRight 0034  
+             ??i1_ReadPlayer 0070               ??_UpdateEnergy 0070               ??i1_ReadWhimsy 0070  
+                  _TOCounter 0038             ??_InitInterrupts 0039                 ??_InitTimers 0039  
+               ??_ReadPlayer 0039                 ??_ReadWhimsy 0039                 ?_Read_Thrust 0070  
+        start_initialization 0170                  __end_of_ISR 0078                    _InitPorts 015B  
+         __end_of_InitTimers 01A9           __end_of_ReadPlayer 01B4           __end_of_ReadWhimsy 01C9  
+          __size_of_InitComm 0029                    _RightTemp 007C            __size_of_ReadKick 000E  
+                __pbssCOMMON 0078                __pcstackBANK0 0039                   ?_InitPorts 0070  
+              i1ReadPlayer@x 0071         __end_ofi1_ReadPlayer 01BF         __end_of_UpdateEnergy 00F7  
+                  __ptext410 0180                    __ptext411 0120                    __ptext420 0078  
+                  __ptext412 01C9                    __ptext421 0000                    __ptext413 015B  
+                  __ptext414 019C                    __ptext406 0000                    __ptext415 0013  
+                  __ptext407 00F7                    __ptext416 01D3                    __ptext408 01A9  
+                  __ptext417 018E                    __ptext409 01BF                    __ptext418 01B4  
+                  __ptext419 00C1         __end_ofi1_ReadWhimsy 01DD            interrupt_function 0004  
+    _NominalAccelerationLeft 0033         __size_of_Read_Thrust 0049                  ??_InitPorts 0039  
+                   _LeftTemp 0078  __size_of_Initialize_Sensors 0021                     _InitComm 00F7  
+                   _ReadKick 0180                     _BytesOut 0028                     _RightZCR 0037  
+              __size_of_main 001A        __size_ofi1_ReadPlayer 000B        __size_of_UpdateEnergy 0036  
+      __size_ofi1_ReadWhimsy 000A                     clear_ram 01DD           _ActiveCommuncation 0030  
+              UpdateEnergy@x 0072                 i1_ReadPlayer 01B4                 _UpdateEnergy 00C1  
+               i1_ReadWhimsy 01D3                     intlevel1 0000      __size_of_InitInterrupts 000A  
+                 i1_ReadKick 018E  

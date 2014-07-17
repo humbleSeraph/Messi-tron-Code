@@ -1,0 +1,16 @@
+_ReadKick: CODE, 384 0 14
+_InitPorts: CODE, 347 0 21
+i1_ReadPlayer: CODE, 436 0 11
+_ISR: CODE, 19 0 101
+_InitInterrupts: CODE, 457 0 10
+_UpdateEnergy: CODE, 193 0 54
+_InitTimers: CODE, 412 0 13
+_main: CODE, 321 0 26
+_Initialize_Sensors: CODE, 288 0 33
+_InitComm: CODE, 247 0 41
+_ReadPlayer: CODE, 425 0 11
+i1_ReadKick: CODE, 398 0 14
+_Read_Thrust: CODE, 120 0 73
+_ReadWhimsy: CODE, 447 0 10
+i1_ReadWhimsy: CODE, 467 0 10
+Total: 442

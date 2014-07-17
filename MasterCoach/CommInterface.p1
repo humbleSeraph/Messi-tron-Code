@@ -1,0 +1,275 @@
+Version 3.2 HI-TECH Software Intermediate Code
+[c E65 0 1 2 3 4 5 6 .. ]
+[n E65 . RESET TAG_OUT TAG_DETECTED STATUS REQ_PAIR PAIR_RESP CTRL  ]
+"8 U:\_218c Teams\BringItOn\218C Project - World Cup\Coach Modules_Shikhar\MasterCoach\CommInterface.c
+[v _type `E65  1 e ]
+"10 U:\_218c Teams\BringItOn\218C Project - World Cup\Coach Modules_Shikhar\MasterCoach\CommInterface.c
+[v _Data `uc  -> 6 `i s ]
+"13 U:\_218c Teams\BringItOn\218C Project - World Cup\Coach Modules_Shikhar\MasterCoach\CommInterface.c
+[v _TAGINFO `uc  1 e ]
+"14 U:\_218c Teams\BringItOn\218C Project - World Cup\Coach Modules_Shikhar\MasterCoach\CommInterface.c
+[v _SDATA `uc  1 e ]
+"15 U:\_218c Teams\BringItOn\218C Project - World Cup\Coach Modules_Shikhar\MasterCoach\CommInterface.c
+[v _PAIRDATA `uc  1 e ]
+"16 U:\_218c Teams\BringItOn\218C Project - World Cup\Coach Modules_Shikhar\MasterCoach\CommInterface.c
+[v _RESPDATA `uc  1 e ]
+"17 U:\_218c Teams\BringItOn\218C Project - World Cup\Coach Modules_Shikhar\MasterCoach\CommInterface.c
+[v _SPD `uc  1 e ]
+"18 U:\_218c Teams\BringItOn\218C Project - World Cup\Coach Modules_Shikhar\MasterCoach\CommInterface.c
+[v _DIR `uc  1 e ]
+"19 U:\_218c Teams\BringItOn\218C Project - World Cup\Coach Modules_Shikhar\MasterCoach\CommInterface.c
+[v _AUX `uc  1 e ]
+"20 U:\_218c Teams\BringItOn\218C Project - World Cup\Coach Modules_Shikhar\MasterCoach\CommInterface.c
+[v _WHIM `uc  1 e ]
+"21 U:\_218c Teams\BringItOn\218C Project - World Cup\Coach Modules_Shikhar\MasterCoach\CommInterface.c
+[v _TRANS `uc  1 e ]
+"207 C:\Program Files\HI-TECH Software\PICC\9.82\include\stdio.h
+[v _printf `(i  0 ev`*Cuc ]
+[p f _printf 8388608 ]
+[; ;stdio.h: 12: typedef int ptrdiff_t;
+[; ;stdio.h: 13: typedef unsigned size_t;
+[; ;stdio.h: 14: typedef unsigned short wchar_t;
+[; ;stdarg.h: 31: typedef void * va_list[1];
+[; ;stdarg.h: 34: extern void * __va_start(void);
+[; ;stdarg.h: 37: extern void * __va_arg(void *, ...);
+[; ;stdio.h: 27: extern int errno;
+[; ;stdio.h: 58: struct __prbuf
+[; ;stdio.h: 59: {
+[; ;stdio.h: 60: char * ptr;
+[; ;stdio.h: 61: void (* func)(char);
+[; ;stdio.h: 62: };
+[; ;conio.h: 17: extern int errno;
+[; ;conio.h: 20: extern void init_uart(void);
+[; ;conio.h: 22: extern char getch(void);
+[; ;conio.h: 23: extern char getche(void);
+[; ;conio.h: 24: extern void putch(char);
+[; ;conio.h: 25: extern void ungetch(char);
+[; ;conio.h: 27: extern bit kbhit(void);
+[; ;conio.h: 31: extern char * cgets(char *);
+[; ;conio.h: 32: extern void cputs(const char *);
+[; ;stdio.h: 103: extern int cprintf(char *, ...);
+[; ;stdio.h: 108: extern int _doprnt(struct __prbuf *, const register char *, register va_list);
+[; ;stdio.h: 195: extern char * gets(char *);
+[; ;stdio.h: 196: extern int puts(const char *);
+[; ;stdio.h: 197: extern int scanf(const char *, ...);
+[; ;stdio.h: 198: extern int sscanf(const char *, const char *, ...);
+[; ;stdio.h: 199: extern int vprintf(const char *, va_list);
+[; ;stdio.h: 200: extern int vsprintf(char *, const char *, va_list);
+[; ;stdio.h: 201: extern int vscanf(const char *, va_list ap);
+[; ;stdio.h: 202: extern int vsscanf(const char *, const char *, va_list);
+[; ;stdio.h: 206: extern int sprintf(char *, const char *, ...);
+[; ;stdio.h: 207: extern int printf(const char *, ...);
+[; ;CommInterface.h: 5: typedef enum
+[; ;CommInterface.h: 6: { RESET,
+[; ;CommInterface.h: 7: TAG_OUT,
+[; ;CommInterface.h: 8: TAG_DETECTED,
+[; ;CommInterface.h: 9: STATUS,
+[; ;CommInterface.h: 10: REQ_PAIR,
+[; ;CommInterface.h: 11: PAIR_RESP,
+[; ;CommInterface.h: 12: CTRL
+[; ;CommInterface.h: 13: } MessageType;
+[; ;CommInterface.h: 18: unsigned char Encode_Message (MessageType type);
+[; ;CommInterface.h: 19: void Decode_Message (void);
+"8 U:\_218c Teams\BringItOn\218C Project - World Cup\Coach Modules_Shikhar\MasterCoach\CommInterface.c
+[i _type
+. `E65 0
+]
+[; ;CommInterface.c: 8: MessageType type = RESET;
+[; ;CommInterface.c: 10: static unsigned char Data[6];
+"13
+[i _TAGINFO
+-> -> 7 `i `uc
+]
+[; ;CommInterface.c: 13: unsigned char TAGINFO = 0b00000111;
+"14
+[i _SDATA
+-> -> 159 `i `uc
+]
+[; ;CommInterface.c: 14: unsigned char SDATA = 0b10011111;
+"15
+[i _PAIRDATA
+-> -> 31 `i `uc
+]
+[; ;CommInterface.c: 15: unsigned char PAIRDATA = 0b00011111;
+"16
+[i _RESPDATA
+-> -> 7 `i `uc
+]
+[; ;CommInterface.c: 16: unsigned char RESPDATA = 0b00000111;
+"17
+[i _SPD
+-> -> 127 `i `uc
+]
+[; ;CommInterface.c: 17: unsigned char SPD = 127;
+"18
+[i _DIR
+-> -> 50 `i `uc
+]
+[; ;CommInterface.c: 18: unsigned char DIR = 50;
+"19
+[i _AUX
+-> -> 255 `i `uc
+]
+[; ;CommInterface.c: 19: unsigned char AUX = 0xff;
+"20
+[i _WHIM
+-> -> 0 `i `uc
+]
+[; ;CommInterface.c: 20: unsigned char WHIM = 0;
+"21
+[i _TRANS
+-> -> 0 `i `uc
+]
+[; ;CommInterface.c: 21: unsigned char TRANS = 0;
+"27
+[v _Decode_Message `(v  1 ef ]
+{
+[; ;CommInterface.c: 26: void Decode_Message(void)
+[; ;CommInterface.c: 27: {
+[e :U _Decode_Message ]
+[f ]
+[; ;CommInterface.c: 28: switch (Data[0])
+"28
+[e $U 4  ]
+[; ;CommInterface.c: 29: {
+"29
+{
+[; ;CommInterface.c: 30: case 0x04:
+"30
+[e :U 5 ]
+[; ;CommInterface.c: 31: {
+"31
+{
+[; ;CommInterface.c: 33: printf("\n\rRESET Received");
+"33
+[e ( _printf :s 1C ]
+"35
+}
+[; ;CommInterface.c: 35: }
+[; ;CommInterface.c: 36: break;
+"36
+[e $U 3  ]
+[; ;CommInterface.c: 38: case 0x02:
+"38
+[e :U 6 ]
+[; ;CommInterface.c: 39: {
+"39
+{
+[; ;CommInterface.c: 41: printf("\n\rTAG_OUT Received");
+"41
+[e ( _printf :s 2C ]
+"43
+}
+[; ;CommInterface.c: 43: }
+[; ;CommInterface.c: 44: break;
+"44
+[e $U 3  ]
+[; ;CommInterface.c: 46: case 0x07:
+"46
+[e :U 7 ]
+[; ;CommInterface.c: 47: {
+"47
+{
+[; ;CommInterface.c: 49: printf("\n\rTAG_DETECTED Received");
+"49
+[e ( _printf :s 3C ]
+"52
+}
+[; ;CommInterface.c: 52: }
+[; ;CommInterface.c: 53: break;
+"53
+[e $U 3  ]
+[; ;CommInterface.c: 55: case 0x06:
+"55
+[e :U 8 ]
+[; ;CommInterface.c: 56: {
+"56
+{
+[; ;CommInterface.c: 58: printf("\n\rSTATUS Received");
+"58
+[e ( _printf :s 4C ]
+"60
+}
+[; ;CommInterface.c: 60: }
+[; ;CommInterface.c: 61: break;
+"61
+[e $U 3  ]
+[; ;CommInterface.c: 63: case 0x03:
+"63
+[e :U 9 ]
+[; ;CommInterface.c: 64: {
+"64
+{
+[; ;CommInterface.c: 66: printf("\n\rREQ_PAIR Received");
+"66
+[e ( _printf :s 5C ]
+"68
+}
+[; ;CommInterface.c: 68: }
+[; ;CommInterface.c: 69: break;
+"69
+[e $U 3  ]
+[; ;CommInterface.c: 72: case 0x05:
+"72
+[e :U 10 ]
+[; ;CommInterface.c: 73: {
+"73
+{
+[; ;CommInterface.c: 75: printf("\n\rPAIR_RESP Received");
+"75
+[e ( _printf :s 6C ]
+"77
+}
+[; ;CommInterface.c: 77: }
+[; ;CommInterface.c: 78: break;
+"78
+[e $U 3  ]
+[; ;CommInterface.c: 80: case 0x01:
+"80
+[e :U 11 ]
+[; ;CommInterface.c: 81: {
+"81
+{
+[; ;CommInterface.c: 83: printf("\n\rCTRL Received");
+"83
+[e ( _printf :s 7C ]
+"85
+}
+[; ;CommInterface.c: 85: }
+[; ;CommInterface.c: 86: break;
+"86
+[e $U 3  ]
+[; ;CommInterface.c: 88: default:
+"88
+[e :U 12 ]
+[; ;CommInterface.c: 89: printf("\n\rReceived Garbage");
+"89
+[e ( _printf :s 8C ]
+"91
+}
+[; ;CommInterface.c: 91: }
+[e $U 3  ]
+"28
+[e :U 4 ]
+[e [\ *U + &U _Data * -> -> -> 0 `i `ui `ux -> -> # *U &U _Data `ui `ux , $ -> -> 4 `i `uc 5
+ , $ -> -> 2 `i `uc 6
+ , $ -> -> 7 `i `uc 7
+ , $ -> -> 6 `i `uc 8
+ , $ -> -> 3 `i `uc 9
+ , $ -> -> 5 `i `uc 10
+ , $ -> -> 1 `i `uc 11
+ 12 ]
+"91
+[e :U 3 ]
+[; ;CommInterface.c: 93: }
+"93
+[e :UE 2 ]
+}
+[a 8C 10 13 82 101 99 101 105 118 101 100 32 71 97 114 98 97 103 101 0 ]
+[a 2C 10 13 84 65 71 95 79 85 84 32 82 101 99 101 105 118 101 100 0 ]
+[a 1C 10 13 82 69 83 69 84 32 82 101 99 101 105 118 101 100 0 ]
+[a 4C 10 13 83 84 65 84 85 83 32 82 101 99 101 105 118 101 100 0 ]
+[a 5C 10 13 82 69 81 95 80 65 73 82 32 82 101 99 101 105 118 101 100 0 ]
+[a 6C 10 13 80 65 73 82 95 82 69 83 80 32 82 101 99 101 105 118 101 100 0 ]
+[a 7C 10 13 67 84 82 76 32 82 101 99 101 105 118 101 100 0 ]
+[a 3C 10 13 84 65 71 95 68 69 84 69 67 84 69 68 32 82 101 99 101 105 118 101 100 0 ]
